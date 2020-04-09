@@ -427,14 +427,14 @@ proc TitleScreen*( title :string)=
 # *allowWindowOps: true
 # *eightBitInput: false
 
-proc ResizeScreen*(col ,row : Natural;) =
-    if col > int(0) and row > int(0) :
-      stdout.write(fmt"{CSI}8;{col};{row};t")
+proc ResizeScreen*(line ,cols : Natural;) =
+    if line > int(0) and cols > int(0) :
+      stdout.write(fmt"{CSI}8;{line};{cols};t")
 
-proc InitScreen*(col ,row : Natural; title : string ="") =
+proc InitScreen*(line ,cols : Natural; title : string ="") =
   if Screen == false :
     fd.openRAW()
-    ResizeScreen(col,row)
+    ResizeScreen(line,cols)
     TitleScreen(title)
     Screen = true
 
@@ -454,11 +454,11 @@ proc CloseScren*() =
 
 
 
-proc getCursor*(col : var Natural ;row : var Natural ) =
+proc getCursor*(line : var Natural ;cols : var Natural ) =
   var cursBuf: array[13,char]
   var i = 0
-  col = 0
-  row = 0
+  line = 0
+  cols = 0
 
   var seq2 = ""
   var seqx = ""
@@ -486,11 +486,11 @@ proc getCursor*(col : var Natural ;row : var Natural ) =
       if i == 13 : break
       if seqx != ";" :
         seqn &= char(cursBuf[i])
-      elif seqx ==  ";" and  col  == 0 :
-        col = parseInt(seqn)
+      elif seqx ==  ";" and  line  == 0 :
+        line = parseInt(seqn)
         seqn =""
-      elif seqx ==  ";" and col > 0 and row == 0:
-        row = parseInt(seqn)
+      elif seqx ==  ";" and line > 0 and cols == 0:
+        cols = parseInt(seqn)
         break
       inc(i)
 
@@ -599,8 +599,8 @@ proc getKey*() : (Key , Ckey.Chr) =
 
 
 
-proc gotoXY*(col: Natural ; row : Natural) =
-  stdout.write(fmt"{CSI}{col};{row}H")
+proc gotoXY*(line: Natural ; cols : Natural) =
+  stdout.write(fmt"{CSI}{line};{cols}H")
   stdout.flushFile
 
 proc OnMouse*() =
@@ -617,12 +617,12 @@ proc getMouse*(): MouseInfo =
   return gMouseInfo
 
 
-proc onScroll*(col , linePage: Natural) : bool =
+proc onScroll*(line , linePage: Natural) : bool =
 
-  if col == 0 or linePage == 0 : return false
+  if line == 0 or linePage == 0 : return false
   
-  var page : Natural  =  col + linePage - 1
-  stdout.write(fmt"{CSI}{col};{page}r")
+  var page : Natural  =  line + linePage - 1
+  stdout.write(fmt"{CSI}{line};{page}r")
   stdout.flushFile
   return true
 
