@@ -33,15 +33,17 @@ sudo mousepad /etc/X11/app-defaults/XTerm
 scrolling area with page before or page after  
 in my experience, switching on the automation managed by escape mode does nothing good except the possibility of manually scrolling by program in a specific area the test will show you.    
 
+&rarr;&nbsp;(key,chr ) = getKey()
+&rarr;&nbsp;(key) = getFunc()
 
 *I would like to thank*
 
-* [https://github.com/johnnovak/illwill](URL)
-* [https://github.com/nim-lang/Nim/blob/version-1-0/lib/pure/terminal.nim#L50](URL)
-* [https://en.wikipedia.org/wiki/Windows-1252](URL) and Other
-* [https://invisible-island.net/xterm/ctlseqs/ctlseqs.html#h3-Extended-coordinates](URL)
-* [http://www.sweger.com/ansiplus/EscSeqScroll.html](URL)  
-* [https://fr.wikipedia.org/wiki/American_Standard_Code_for_Information_Interchange](URL)
+* [https://github.com/johnnovak/illwill](URLhttps://github.com/johnnovak/illwill
+* [https://github.com/nim-lang/Nim/blob/version-1-0/lib/pure/terminal.nim#L50](https://github.com/nim-lang/Nim/blob/version-1-0/lib/pure/terminal.nim#L50])
+* [https://en.wikipedia.org/wiki/Windows-1252](https://en.wikipedia.org/wiki/Windows-1252) and Other
+* [https://invisible-island.net/xterm/ctlseqs/ctlseqs.html#h3-Extended-coordinates](https://invisible-island.net/xterm/ctlseqs/ctlseqs.html#h3-Extended-coordinates)
+* [http://www.sweger.com/ansiplus/EscSeqScroll.html](http://www.sweger.com/ansiplus/EscSeqScroll.html)  
+* [https://fr.wikipedia.org/wiki/American_Standard_Code_for_Information_Interchange](https://fr.wikipedia.org/wiki/American_Standard_Code_for_Information_Interchange)
 
 
 
@@ -49,6 +51,10 @@ in my experience, switching on the automation managed by escape mode does nothin
 
 
 i did this to work with nim to understand some subtlety  
+
+
+**Update**
+&rarr;&nbsp; 2020-04-16   add  proc (key) = getFunc()  read touche  omit key.Char 
 
 
 

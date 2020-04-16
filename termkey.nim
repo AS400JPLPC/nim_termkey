@@ -597,7 +597,24 @@ proc getKey*() : (Key , Ckey.Chr) =
     let (key, chr) = parseKey(i)
     if key != Key.None : return (key, chr)
 
+## get the keyboard keys from the terminal
+proc getFunc*() : (Key) =
+  while true :
+    stdin.flushFile
+    ## clean buffer
+    var i = 0
+    for u in 0..<KeySequenceMaxLen:
+      keyBuf[u] = 0
 
+    ## Read a mutlicaractère character from the terminal, noblocking until it is entered.
+    ## read keyboard or Mouse
+    while true  :
+      var ncar = read(0, keyBuf[i].addr, 1)
+      if ncar == 0 and i > 0 : break
+      if ncar > 0 : i += 1
+    ## decrypt Data
+    let (key, chr) = parseKey(i)
+    if key != Key.None and key != Key.Char  : return (key)
 
 proc gotoXY*(line: Natural ; cols : Natural) =
   stdout.write(fmt"{CSI}{line};{cols}H")
