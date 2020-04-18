@@ -56,7 +56,7 @@ i did this to work with nim to understand some subtlety
 **Update**
 &rarr;&nbsp; 2020-04-16   add  proc (key) = getFunc()  read touche  omit key.Char 
 
-
+&rarr;&nbsp; 2020-04-18   correctif line 572   if key == Key.None : key = Key.Char
 
 
 

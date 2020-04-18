@@ -569,7 +569,7 @@ proc parseKey(charsRead: int): (Key , Ckey.Chr) =
         key = toKey(keyCode)
         inputSeq =""
         break
-  if key == Char : key = Key.None
+  if key == Key.None : key = Key.Char
   return (key,inputSeq)
 
 
