@@ -58,6 +58,11 @@ i did this to work with nim to understand some subtlety
 
 &rarr;&nbsp; 2020-04-18   correctif line 572   if key == Key.None : key = Key.Char
 
+&rarr;&nbsp; 2020-04-20   correctif Key change: enum 
+
+            to respect enum: adding the table with a functional suite
+
+
 
 
 
