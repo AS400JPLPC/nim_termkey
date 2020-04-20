@@ -58,11 +58,11 @@ i did this to work with nim to understand some subtlety
 
 &rarr;&nbsp; 2020-04-18   correctif line 572   if key == Key.None : key = Key.Char
 
-&rarr;&nbsp; 2020-04-20   correctif Key/Char change: enum  
+&rarr;&nbsp; 2020-04-20   correctif Key/Car change: enum  
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * to respect enum:adding the table with a functional suite  
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Char = Facilitates special character display  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Car = Facilitates special character display  
 
 
 
