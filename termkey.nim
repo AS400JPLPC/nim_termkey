@@ -187,84 +187,78 @@ type
     # Special ASCII characters
     # code decimal unicode  except Cool 
 
-    Cent          = (162, "¢"),
-    Currency      = (164, "¤"),
-    Yen           = (165, "¥"),
-    PipeBroken    = (166,"¦"),
-    Copyright     = (169, "©"),
-    Left2Quot     = (171, "«"),
-    Registered    = (174, "®"),
-    Degree        = (176, "°"),
-    Plusminus     = (177, "±"),
-    Expo2         = (178, "²"),
-    Expo3         = (179, "³"),
-    AcuteAccent   = (180, "´"),
-    Micro         = (181, "µ"),
-    Expo1         = (185, "¹"),
-    Right2Quot    = (187, "»"),
-    Fraction14    = (188, "¼"),
-    Fraction12    = (189, "½"),
-    Fraction34    = (190, "¾"),
+    Cent          = "¢", # 162
+    Currency      = "¤", # 164
+    Yen           = "¥", # 165
+    PipeBroken    = "¦", # 166
+    Copyright     = "©", # 169
+    Left2Quot     = "«", # 171
+    Registered    = "®", # 174
+    Degree        = "°", # 176
+    Plusminus     = "±", # 177
+    Expo2         = "²", # 178
+    Expo3         = "³", # 179
+    AcuteAccent   = "´", # 180
+    Micro         = "µ", # 181
+    Expo1         = "¹", # 182
+    Right2Quot    = "»", # 183
+    Fraction14    = "¼", # 184
+    Fraction12    = "½", # 185
+    Fraction34    = "¾", # 190
 
-    COmega        = (937, "Ω"),
-    CAlpha        = (945, "α"),
-    CDelta        = (948, "δ"),
-    CEpsilon      = (949, "ε"),
-    CLambda       = (955, "λ"),
-    CPy           = (960, "π"),
-    CPhi          = (966, "φ"),
-    CPsy          = (968, "ψ"),
+    COmega        = "Ω", # 937
+    CAlpha        = "α", # 945
+    CDelta        = "δ", # 948
+    CEpsilon      = "ε", # 949
+    CLambda       = "λ", # 955
+    CPy           = "π", # 960
+    CPhi          = "φ", # 966
+    CPsy          = "ψ", # 968
     
-    CRho          = (1009, "ϱ"),
+    CRho          = "ϱ", # 1009
 
+    Bullet        = "•", # 8226
+    Ellipsis      = "…", # 8230
+    Permille      = "‰", # 8240
+    Euro          = "€", # 8264
 
+    TradeMark     = "™", # 8482
+    Left          = "←", # 8492
+    Up            = "↑", # 8493
+    Right         = "→", # 8494
+    Down          = "↓", # 8495
+    LeftRight     = "↔", # 8496
+    UpDown        = "↕", # 8497
 
-    Bullet        = (8226, "•"),
-    Ellipsis      = (8230, "…"),
-    Permille      = (8240, "‰"),
-    Euro          = (8364, "€"),
+    Round         = "≃", # 8771
+    PlusLE        = "≤", # 8804
+    PlusGE        = "≥", # 8805
 
+    Ombre0        = "░", # 9617
+    Ombre1        = "▒", # 9618
+    Ombre2        = "▓", # 9619
 
-    TradeMark     = (8482, "™"),
+    UpBlack       = "▲", # 9650
+    RightBlack    = "►", # 9658
+    DownBlack     = "▼", # 9660
+    LeftBlack     = "◄", # 9668
 
-    Left          = (8592, "←"),
-    Up            = (8593, "↑"),
-    Right         = (8594 , "→"),
-    Down          = (8595 , "↓"),
-    LeftRight     = (8596, "↔"),
-    UpDown        = (8597, "↕"),
+    Xtrue         = "◉", # 9673
+    Xfalse        = "◎", # 9678
 
-    Round         = (8771, "≃"),
-    PlusLE        = (8804, "≤"),
-    PlusGE        = (8805, "≥"),
+    Bad           = "☹️", # 9785
+    Cool          = "😊",  # no reference
 
-    Ombre0        = (9617, "░"),
-    Ombre1        = (9618, "▒"),
-    Ombre2        = (9619, "▓"),
-
-    UpBlack       = (9650, "▲"),
-    RightBlack    = (9658, "►"),
-    DownBlack     = (9660, "▼"),
-    LeftBlack     = (9668, "◄"),
-
-
-    Xtrue         = (9673, "◉"),
-    Xfalse        = (9678, "◎"),
-
-
-    Bad           = (9785, "☹️"),
-    Cool          = (9786, "😊"),  # no reference
-
-    Femele        = (9792, "♀"),
-    Male          = (9794, "♂"),
+    Femele        = "♀", # 9792
+    Male          = "♂", # 9794
 
     
-    Pique         = (9824, "♠"),
-    Trefle        = (9827, "♣"),
-    Coeur         = (9829, "♥"),
-    Carreau       = (9830, "♦"),
+    Pique         = "♠", # 9824
+    Trefle        = "♣", # 9827
+    Coeur         = "♥", # 9829
+    Carreau       = "♦", # 9830
 
-    Audio         = (9835, "♫")
+    Audio         = "♫" # 9835
 
 
 

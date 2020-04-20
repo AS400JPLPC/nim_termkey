@@ -20,8 +20,8 @@ the character keys are UTF8
 
 &rarr;&nbsp;for Xterm  
 sudo mousepad /etc/X11/app-defaults/XTerm  
-* allowWindowOps: true  
-* eightBitInput: false    
+* allowWindowOps: true
+* eightBitInput: false
 
 &rarr;&nbsp;function:  
 * crtlA..Z  
@@ -58,8 +58,13 @@ i did this to work with nim to understand some subtlety
 
 &rarr;&nbsp; 2020-04-18   correctif line 572   if key == Key.None : key = Key.Char
 
-&rarr;&nbsp; 2020-04-20   correctif Key change: enum 
-&rarr;&nbsp; to respect enum:adding the table with a functional suite
+&rarr;&nbsp; 2020-04-20   correctif Key/Char change: enum  
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * to respect enum:adding the table with a functional suite  
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Char = Facilitates special character display  
+
+
 
 
 
