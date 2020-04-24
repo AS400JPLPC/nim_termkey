@@ -1,14 +1,9 @@
-# base https://github.com/johnnovak/illwill
-# base https://github.com/nim-lang/Nim/blob/version-1-0/lib/pure/terminal.nim#L50
-# https://en.wikipedia.org/wiki/Windows-1252 and Other
-
-
 #======================================================
 #	work get-keyboard and Mouse 
 #		Linux
 #
 #		30/03/2020
-#
+# inspiration  terminal.nim
 # Inspiration johnnovak/illwill and JPLAS400PC C++
 # retrieve keyboard Basic Latin 1252 or extend ISO-8859-15
 # ADD utilitaire for sigle Print
