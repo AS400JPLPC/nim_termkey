@@ -64,6 +64,7 @@ i did this to work with nim to understand some subtlety
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Char = Facilitates special character display  
 
+&rarr;&nbsp; 2020-04-24   correctif Key.F2 =F2 (error script F21) 
 
 
 

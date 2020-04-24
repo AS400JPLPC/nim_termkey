@@ -66,7 +66,7 @@ type
       PageUp   = "PageUp",
       PageDown = "PageDown",
 
-      F1  = "F1", F2   = "F21", F3  = "F3",   F4 = "F4",  F5  = "F5",
+      F1  = "F1", F2   = "F2", F3  = "F3",   F4 = "F4",  F5  = "F5",
       F6  = "F6", F7   = "F7",  F8  = "F8",   F9 = "F9",  F10 = "F10",
       F11 = "F11", F12 = "F12", F13 = "F13", F14 = "F14", F15 = "F15",
       F16 = "F16", F17 = "F17", F18 = "F18", F19 = "F19", F20 = "F20",
@@ -367,20 +367,17 @@ proc eventMouseInfo(keyBuf: array[KeySequenceMaxLen, int]) =
 # Thank you base https://github.com/nim-lang/Nim/blob/version-1-0/lib/pure/terminal.nim#L50
 #======================================================
 
-## Modification of the terminal for keyboard reading without stdou.write
+## Modification of the terminal for keyboard reading without stdout.write
 let fd = getFileHandle(stdin)
 var oldMode: Termios
 var Screen :bool = false
 
-
-# no crtl-c active
 proc openRAW(fd: FileHandle, time: cint = TCSAFLUSH) =
   if Screen == true : return
   var mode: Termios
   discard fd.tcGetAttr(addr oldMode)
   discard fd.tcGetAttr(addr mode)
-  mode.c_iflag = mode.c_iflag and not Cflag(BRKINT or ICRNL or INPCK or
-    ISTRIP or IXON)
+  mode.c_iflag = mode.c_iflag and not Cflag(BRKINT or ICRNL or INPCK or  ISTRIP or IXON)
   mode.c_oflag = mode.c_oflag and not Cflag(OPOST)
   mode.c_cflag = (mode.c_cflag and not Cflag(CSIZE or PARENB)) or CS8
   mode.c_lflag = mode.c_lflag and not Cflag(ECHO or ICANON or IEXTEN or ISIG)
@@ -579,6 +576,7 @@ proc getKey*() : (Key , Ckey.Chr) =
       var ncar = read(0, keyBuf[i].addr, 1)
       if ncar == 0 and i > 0 : break
       if ncar > 0 : i += 1
+
     ## decrypt Data
     let (key, chr) = parseKey(i)
     if key != Key.None : return (key, chr)
