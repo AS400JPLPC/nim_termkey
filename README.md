@@ -1,6 +1,7 @@
 # nim_termkey
 gestion terminal keyboard and mouse resize ...
 
+doc : [TERMCURS](http://htmlpreview.github.io/?https://github.com/AS400JPLPC/nim_termkey/blob/master/termkey.html)
 
 **Linux**
 
@@ -32,6 +33,12 @@ sudo mousepad /etc/X11/app-defaults/XTerm
 * Special function
 scrolling area with page before or page after  
 in my experience, switching on the automation managed by escape mode does nothing good except the possibility of manually scrolling by program in a specific area the test will show you.    
+* ATTN PROC CALL  
+Keyboard simulation done by the program and not by the keyboard
+
+&rarr;&nbsp; ATTN keyboard simulation&nbsp;&nbsp;&rarr;Passes program name to application server
+&rarr;&nbsp; PROC keyboard simulation&nbsp;&nbsp;&rarr;Transmits the name of the procedure to be executed in Internal
+&rarr;&nbsp; CALL keyboard simulation&nbsp;&nbsp;&rarr;Transmits the name of the procedure to be executed in External
 
 &rarr;&nbsp;(key,chr ) = getKey()
 &rarr;&nbsp;(key) = getFunc()
@@ -66,8 +73,7 @@ i did this to work with nim to understand some subtlety
 
 &rarr;&nbsp; 2020-04-24   correctif Key.F2 =F2 (error script) 
 
-
-
+&rarr;&nbsp; 2020-06-20   additif Key.ATTN&nbsp;Key.PROC&nbsp;Key.CALL&nbsp;&nbsp;&nbsp; Keyboard simulation done by the program and not by the keyboard
 
 
 
