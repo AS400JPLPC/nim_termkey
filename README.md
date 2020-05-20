@@ -1,7 +1,7 @@
 # nim_termkey
 gestion terminal keyboard and mouse resize ...
 
-doc : [TERMCURS](http://htmlpreview.github.io/?https://github.com/AS400JPLPC/nim_termkey/blob/master/termkey.html)
+doc : [TERMKEY](http://htmlpreview.github.io/?https://github.com/AS400JPLPC/nim_termkey/blob/master/termkey.html)
 
 **Linux**
 
