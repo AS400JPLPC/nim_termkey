@@ -566,6 +566,8 @@ proc parseKey(charsRead: int): (Key , Ckey.Chr) =
 
 ## get the keyboard keys from the terminal
 proc getKey*() : (Key , Ckey.Chr) =
+  var key = Key.None
+  var chr : string
   while true :
     stdin.flushFile
     ## clean buffer
@@ -581,11 +583,13 @@ proc getKey*() : (Key , Ckey.Chr) =
       if ncar > 0 : i += 1
 
     ## decrypt Data
-    let (key, chr) = parseKey(i)
+    (key, chr) = parseKey(i)
     if key != Key.None : return (key, chr)
 
 ## get the keyboard keys from the terminal
-proc getFunc*() : (Key) =
+proc getFunc*(curs : bool = false) : (Key) =
+  var key = Key.None
+  var chr : string
   while true :
     stdin.flushFile
     ## clean buffer
@@ -596,12 +600,14 @@ proc getFunc*() : (Key) =
     ## Read a mutlicaractère character from the terminal, noblocking until it is entered.
     ## read keyboard or Mouse
     while true  :
+      if curs == false : hideCursor()
       var ncar = read(0, keyBuf[i].addr, 1)
       if ncar == 0 and i > 0 : break
       if ncar > 0 : i += 1
     ## decrypt Data
-    let (key, chr) = parseKey(i)
+    (key, chr) = parseKey(i)
     if key != Key.None and key != Key.Char  : return (key)
+
 
 proc gotoXY*(line: Natural ; cols : Natural) =
   stdout.write(fmt"{CSI}{line};{cols}H")

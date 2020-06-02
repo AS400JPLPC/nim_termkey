@@ -173,8 +173,8 @@ function main() {
     title="getCursor(line: var Natural; cols: var Natural)"><wbr />get<wbr />Cursor<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#getKey"
     title="getKey(): (Key, Ckey.Chr)"><wbr />get<wbr />Key<span class="attachedType"></span></a></li>
-  <li><a class="reference" href="#getFunc"
-    title="getFunc(): (Key)"><wbr />get<wbr />Func<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#getFunc%2Cbool"
+    title="getFunc(curs: bool = false): (Key)"><wbr />get<wbr />Func<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#gotoXY%2CNatural%2CNatural"
     title="gotoXY(line: Natural; cols: Natural)"><wbr />goto<wbr />XY<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#OnMouse"
@@ -346,8 +346,9 @@ read cursor
 
 
 </dd>
-<a id="getFunc"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#getFunc"><span class="Identifier">getFunc</span></a><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <span class="Other">(</span><a href="termkey.html#Key"><span class="Identifier">Key</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<a id="getFunc,bool"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#getFunc%2Cbool"><span class="Identifier">getFunc</span></a><span class="Other">(</span><span class="Identifier">curs</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">)</span><span class="Other">:</span> <span class="Other">(</span><a href="termkey.html#Key"><span class="Identifier">Key</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span>
+                                    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
 <dd>
 
 
@@ -421,7 +422,7 @@ read cursor
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2020-05-20 09:17:35 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2020-06-02 10:23:59 UTC</small>
       </div>
     </div>
   </div>

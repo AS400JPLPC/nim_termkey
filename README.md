@@ -37,8 +37,11 @@ in my experience, switching on the automation managed by escape mode does nothin
 Keyboard simulation done by the program and not by the keyboard
 
 &rarr;&nbsp; ATTN keyboard simulation&nbsp;&nbsp;&rarr;Passes program name to application server
+
 &rarr;&nbsp; PROC keyboard simulation&nbsp;&nbsp;&rarr;Transmits the name of the procedure to be executed in Internal
+
 &rarr;&nbsp; CALL keyboard simulation&nbsp;&nbsp;&rarr;Transmits the name of the procedure to be executed in External
+
 
 &rarr;&nbsp;(key,chr ) = getKey()
 &rarr;&nbsp;(key) = getFunc()
@@ -75,7 +78,7 @@ i did this to work with nim to understand some subtlety
 
 &rarr;&nbsp; 2020-06-20   additif Key.ATTN&nbsp;Key.PROC&nbsp;Key.CALL&nbsp;&nbsp;&nbsp; Keyboard simulation done by the program and not by the keyboard
 
-
+&rarr;&nbsp; 2020-06-02   proc (key) = getFunc(curs : bool = false)&nbsp;&nbsp;&nbsp;improves function
 
 
 
