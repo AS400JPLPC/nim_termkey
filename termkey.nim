@@ -269,7 +269,8 @@ type
 
 # surely a 30 char buffer is more than enough; the longest
 # keycode sequence I've seen was 6 chars
-const KeySequenceMaxLen = 30
+# very problème buffer expand occurs tihs value 800 is correct 99%
+const KeySequenceMaxLen = 800
 
 
 
@@ -558,7 +559,7 @@ proc parseKey(charsRead: int): (Key , Ckey.Chr) =
   if key == Key.None : key = Key.Char
   return (key,inputSeq)
 
-
+proc gotoXY*(line: Natural ; cols : Natural)
 
 #======================================================
 # Keyboard Linux 
@@ -569,7 +570,6 @@ proc getKey*() : (Key , Ckey.Chr) =
   var key = Key.None
   var chr : string
   while true :
-    stdin.flushFile
     ## clean buffer
     var i = 0
     for u in 0..<KeySequenceMaxLen:
@@ -577,11 +577,11 @@ proc getKey*() : (Key , Ckey.Chr) =
 
     ## Read a mutlicaractère character from the terminal, noblocking until it is entered.
     ## read keyboard or Mouse
+    stdin.flushFile
     while true  :
       var ncar = read(0, keyBuf[i].addr, 1)
       if ncar == 0 and i > 0 : break
       if ncar > 0 : i += 1
-
     ## decrypt Data
     (key, chr) = parseKey(i)
     if key != Key.None : return (key, chr)

@@ -80,7 +80,7 @@ i did this to work with nim to understand some subtlety
 
 &rarr;&nbsp; 2020-06-02   proc (key) = getFunc(curs : bool = false)&nbsp;&nbsp;&nbsp;improves function
 
-
+&rarr;&nbsp; 2020-06-24   correctif Mouse I solved the problem : scratching  
 
 
 
