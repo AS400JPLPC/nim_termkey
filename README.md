@@ -82,5 +82,49 @@ i did this to work with nim to understand some subtlety
 
 &rarr;&nbsp; 2020-06-24   correctif Mouse I solved the problem : scratching  
 
+&rarr;&nbsp; 2020-06-26   Addition hide show cursor, only for harmonization and other module & mouse  
+
+.  
+
+.  
+
+.  
 
 
+Procs
+
+proc titleScreen(title: string) {...}
+
+proc resizeScreen(line, cols: Natural) {...}
+
+proc initScreen(line, cols: Natural; title: string = "") {...}
+
+proc initScreen() {...}
+
+proc closeScren() {...}
+
+proc offCursor() {...}
+
+proc onCursor() {...}
+
+proc getCursor(line: var Natural; cols: var Natural) {...}
+
+proc getKey(): (Key, Ckey.Chr) {...}
+
+proc getFunc(curs: bool = false): (Key) {...}
+
+proc gotoXY(line: Natural; cols: Natural) {...}
+
+proc onMouse() {...}
+
+proc offMouse() {...}
+
+proc getMouse(): MouseInfo {...}
+
+proc onScroll(line, linePage: Natural): bool {...}
+
+proc offScroll(): bool {...}
+
+proc upScrool(line: Natural) {...}
+
+proc downScrool(line: Natural) {...}

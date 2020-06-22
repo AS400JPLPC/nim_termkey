@@ -395,7 +395,7 @@ proc openRAW(fd: FileHandle, time: cint = TCSAFLUSH) =
 
 
 
-proc TitleScreen*( title :string)=
+proc titleScreen*( title :string)=
   if title != "" :
     const CSIstart = 0x1b.chr & "]" & "0" & ";"
     const CSIend   = 0x07.chr
@@ -408,31 +408,33 @@ proc TitleScreen*( title :string)=
 # *allowWindowOps: true
 # *eightBitInput: false
 
-proc ResizeScreen*(line ,cols : Natural;) =
+proc resizeScreen*(line ,cols : Natural;) =
     if line > int(0) and cols > int(0) :
       stdout.write(fmt"{CSI}8;{line};{cols};t")
 
-proc InitScreen*(line ,cols : Natural; title : string ="") =
+proc initScreen*(line ,cols : Natural; title : string ="") =
   if Screen == false :
     fd.openRAW()
-    ResizeScreen(line,cols)
-    TitleScreen(title)
+    resizeScreen(line,cols)
+    titleScreen(title)
     Screen = true
 
-proc InitScreen*() =
+
+proc initScreen*() =
   if Screen == false :
     fd.openRAW()
     Screen = true
 
-## restor terminal 
-proc CloseScren*() =
+# restor terminal 
+proc closeScren*() =
   discard fd.tcSetAttr(TCSADRAIN, addr oldMode)
   quit(0)
 
 
 
+proc offCursor*() = hideCursor()
 
-
+proc onCursor*() = showCursor()
 
 
 proc getCursor*(line : var Natural ;cols : var Natural ) =
@@ -448,7 +450,7 @@ proc getCursor*(line : var Natural ;cols : var Natural ) =
   stdin.flushFile
   stdout.write(fmt"{CSI}?6n")
   stdout.flushFile
-  ## read cursor
+  #read cursor
   while true  :
     var ncar = read(0, cursBuf.addr, 13)
     if ncar == 0 and i > 0 : break
@@ -613,12 +615,12 @@ proc gotoXY*(line: Natural ; cols : Natural) =
   stdout.write(fmt"{CSI}{line};{cols}H")
   stdout.flushFile
 
-proc OnMouse*() =
+proc onMouse*() =
   stdout.write(EnableMouse)
   stdout.flushFile
 
 
-proc OffMouse*() =
+proc offMouse*() =
   stdout.write(DisableMouse)
   stdout.flushFile
 
@@ -643,10 +645,10 @@ proc offScroll*():bool =
   stdout.flushFile
   return false
 
-proc Upscrool*(line : Natural) =
+proc upScrool*(line : Natural) =
   stdout.write(fmt"{CSI}{line}S")
   stdout.flushFile
 
-proc Downscrool*(line : Natural) =
+proc downScrool*(line : Natural) =
   stdout.write(fmt"{CSI}{line}T")
   stdout.flushFile
