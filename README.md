@@ -84,6 +84,8 @@ i did this to work with nim to understand some subtlety
 
 &rarr;&nbsp; 2020-06-26   Addition hide show cursor, only for harmonization and other module & mouse  
 
+&rarr;&nbsp; 2020-08-26   correctif change: special character conformité and terminal and UTF8   
+
 .  
 
 .  

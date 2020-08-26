@@ -249,9 +249,6 @@ type
     Xtrue         = "◉", # 9673
     Xfalse        = "◎", # 9678
 
-    Bad           = "☹️", # 9785
-    Cool          = "😊",  # no reference
-
     Femele        = "♀", # 9792
     Male          = "♂", # 9794
 
@@ -262,8 +259,6 @@ type
     Carreau       = "♦", # 9830
 
     Audio         = "♫"  # 9835
-
-    Phone         = "☎" # 260E utf8-> E2 98 8E
 
 
 
