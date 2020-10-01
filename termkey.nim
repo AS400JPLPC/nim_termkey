@@ -2,13 +2,8 @@
 #	work get-keyboard and Mouse 
 #		Linux
 #
-#		30/03/2020
-# inspiration  terminal.nim
 # Inspiration johnnovak/illwill and JPLAS400PC C++
-# retrieve keyboard Basic Latin 1252 or extend ISO-8859-15
-# ADD utilitaire for sigle Print
-#
-# tank you open-source for studie and inspiration
+# retrieve keyboard UTF8
 #======================================================
 
 
