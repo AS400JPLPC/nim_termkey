@@ -17,7 +17,7 @@ gestion full keyboard
 the function keys being common to keyboards
 the character keys are UTF8  
 
-&rarr;&nbsp;use in conjunction with a tvte program, you can easily resize / change title as you see fit.  
+&rarr;&nbsp;use in conjunction with a libvte program, you can easily resize / change title as you see fit.  
 
 &rarr;&nbsp;for Xterm  
 sudo mousepad /etc/X11/app-defaults/XTerm  
