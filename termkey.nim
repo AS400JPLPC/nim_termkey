@@ -3,7 +3,7 @@
 #		Linux
 #
 # Inspiration johnnovak/illwill and JPLAS400PC C++
-# retrieve keyboard UTF8
+# retrieve keyboard UTF8  terminal nim
 #======================================================
 
 
