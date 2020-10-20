@@ -24,6 +24,11 @@ sudo mousepad /etc/X11/app-defaults/XTerm
 * allowWindowOps: true
 * eightBitInput: false
 
+
+If you use the nim_vte project you will have even more possibilities than xterm
+
+
+
 &rarr;&nbsp;function:  
 * crtlA..Z  
 * altA..Z
