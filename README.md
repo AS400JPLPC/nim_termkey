@@ -3,13 +3,13 @@ gestion terminal keyboard and mouse resize ...
 
 doc : [TERMKEY](http://htmlpreview.github.io/?https://github.com/AS400JPLPC/nim_termkey/blob/master/termkey.html)
 
-A library to manage the keyboard on a terminal, the mouse, with a set of functions to initialize as we must do when we talk with the terminal example for applications of the curse type.<br />
-  It's in pure Nim and UTF8<br />
-some keys not coming from the keyboard are introduced such that ATTN PROC CALL allows in certain situations to simulate programs or functions.<br />
-all the characters remain consistent with the management of a terminal on Linux<br />
-mouse management is subject to Xterm Ncurses compliance<br />
-Your table of unusual characters conforms to the standard of the possibilities of an extended keyboard<br />
-I decided not to introduce management on Windows and prefer to have 2 separate libraries, there are too many differences.<br />
+**A library to manage the keyboard on a terminal, the mouse, with a set of functions to initialize as we must do when we talk with the terminal example for applications of the curse type.**<br />
+&rarr;&nbsp;It's in pure Nim and UTF8<br />
+&rarr;&nbsp;some keys not coming from the keyboard are introduced such that ATTN PROC CALL allows in certain situations to simulate programs or functions.<br />
+&rarr;&nbsp;all the characters remain consistent with the management of a terminal on Linux<br />
+&rarr;&nbsp;mouse management is subject to Xterm Ncurses compliance<br />
+&rarr;&nbsp;Your table of unusual characters conforms to the standard of the possibilities of an extended keyboard<br />
+&rarr;&nbsp;I decided not to introduce management on Windows and prefer to have 2 separate libraries, there are too many differences.<br />
 
 
 **Linux**
@@ -20,7 +20,7 @@ gestion Mouse
 
 gestion full keyboard
 
-<u>Keyboard management and respect for the terminal philosophy</u>
+<u>Keyboard management and respect for the terminal philosophy</u><br />
 
 &rarr;&nbsp; UTF8
 the function keys being common to keyboards
@@ -34,31 +34,30 @@ sudo mousepad /etc/X11/app-defaults/XTerm
 * eightBitInput: false
 
 
-If you use the nim_vte project you will have even more possibilities than xterm
+If you use the VteTERM project you will have even more possibilities than xterm
 
 
 
-&rarr;&nbsp;function:  
-* crtlA..Z  
-* altA..Z
-* F1..F24
-* tab ... inser&nbsp;delete&nbsp;home&nbsp;end&nbsp;page&nbsp;up&nbsp;down&nbsp;left&nbsp;rigth&nbsp;esc  
-* other&nbsp;full&nbsp;char  
-* Special function
-scrolling area with page before or page after  
-in my experience, switching on the automation managed by escape mode does nothing good except the possibility of manually scrolling by program in a specific area the test will show you.    
-* ATTN PROC CALL  
-Keyboard simulation done by the program and not by the keyboard
+&rarr;&nbsp;***function***:  
+&ndash;&nbsp; crtlA..Z  
+&ndash;&nbsp; altA..Z
+&ndash;&nbsp; F1..F24
+&ndash;&nbsp; tab ... inser&nbsp;delete&nbsp;home&nbsp;end&nbsp;page&nbsp;up&nbsp;down&nbsp;left&nbsp;rigth&nbsp;esc  
+&ndash;&nbsp; other&nbsp;full&nbsp;char  
+&rarr;&nbsp;Special function
+&ndash;&nbsp; scrolling area with page before or page after  
+&ndash;&nbsp; in my experience, switching on the automation managed by escape mode does nothing good except the possibility of manually scrolling by program in a specific area the test will show you.    
 
-&rarr;&nbsp; ATTN keyboard simulation&nbsp;&nbsp;&rarr;Passes program name to application server
+&ndash;&nbsp; Keyboard simulation done by the program and not by the keyboard
 
-&rarr;&nbsp; PROC keyboard simulation&nbsp;&nbsp;&rarr;Transmits the name of the procedure to be executed in Internal
+&ndash;&nbsp; ATTN keyboard simulation&nbsp;&nbsp;&rarr;Passes program name to application server
 
-&rarr;&nbsp; CALL keyboard simulation&nbsp;&nbsp;&rarr;Transmits the name of the procedure to be executed in External
+&ndash;&nbsp; PROC keyboard simulation&nbsp;&nbsp;&rarr;Transmits the name of the procedure to be executed in Internal
 
+&ndash;&nbsp; CALL keyboard simulation&nbsp;&nbsp;&rarr;Transmits the name of the procedure to be executed in External
 
-&rarr;&nbsp;(key,chr ) = getKey()
-&rarr;&nbsp;(key) = getFunc()
+&ndash;&nbsp;(key,chr ) = getKey()
+&ndash;&nbsp;(key) = getFunc()
 
 *I would like to thank*
 
@@ -88,8 +87,6 @@ i did this to work with nim to understand some subtlety
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Car = Facilitates special character display  
 
-&rarr;&nbsp; 2020-04-24   correctif Key.F2 =F2 (error script) 
-
 &rarr;&nbsp; 2020-06-20   additif Key.ATTN&nbsp;Key.PROC&nbsp;Key.CALL&nbsp;&nbsp;&nbsp; Keyboard simulation done by the program and not by the keyboard
 
 &rarr;&nbsp; 2020-06-02   proc (key) = getFunc(curs : bool = false)&nbsp;&nbsp;&nbsp;improves function
@@ -107,7 +104,7 @@ i did this to work with nim to understand some subtlety
 .  
 
 
-Procs
+***Proc***
 
 proc titleScreen(title: string) {...}
 
