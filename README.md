@@ -5,7 +5,7 @@ doc : [TERMKEY](http://htmlpreview.github.io/?https://github.com/AS400JPLPC/nim_
 
 A library to manage the keyboard on a terminal, the mouse, with a set of functions to initialize as we must do when we talk with the terminal example for applications of the curse type.<br />
   It's in pure Nim and UTF8<br />
-some keys not coming from the keyboard are introduced such that ATTN PROC ATTN allows in certain situations to simulate programs or functions.<br />
+some keys not coming from the keyboard are introduced such that ATTN PROC CALL allows in certain situations to simulate programs or functions.<br />
 all the characters remain consistent with the management of a terminal on Linux<br />
 mouse management is subject to Xterm Ncurses compliance<br />
 Your table of unusual characters conforms to the standard of the possibilities of an extended keyboard<br />
