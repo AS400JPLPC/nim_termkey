@@ -8,7 +8,7 @@ A library to manage the keyboard on a terminal, the mouse, with a set of functio
 some keys not coming from the keyboard are introduced such that ATTN PROC ATTN allows in certain situations to simulate programs or functions.<br />
 all the characters remain consistent with the management of a terminal on Linux<br />
 mouse management is subject to Xterm Ncurses compliance<br />
-Your table of unusual characters conforms to the standard standards of the possibilities of an extended keyboard<br />
+Your table of unusual characters conforms to the standard of the possibilities of an extended keyboard<br />
 I decided not to introduce management on Windows and prefer to have 2 separate libraries, there are too many differences.<br />
 
 
