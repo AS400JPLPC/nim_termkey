@@ -3,6 +3,17 @@ gestion terminal keyboard and mouse resize ...
 
 doc : [TERMKEY](http://htmlpreview.github.io/?https://github.com/AS400JPLPC/nim_termkey/blob/master/termkey.html)
 
+A library to manage the keyboard on a terminal, the mouse, with a set of functions to initialize as we must do when we talk with the terminal example for applications of the curse type.
+  It's in pure Nim and UTF8
+some keys not coming from the keyboard are introduced such that ATTN PROC ATTN allows in certain situations to simulate programs or functions.
+all the characters remain consistent with the management of a terminal on Linux
+mouse management is subject to Xterm Ncurses compliance
+
+Your table of unusual characters conforms to the standard standards of the possibilities of an extended keyboard
+
+I decided not to introduce management on Windows and prefer to have 2 separate libraries, there are too many differences.
+
+
 **Linux**
 
 **nim pure**
