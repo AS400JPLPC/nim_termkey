@@ -66,7 +66,13 @@ If you use the VteTERM project you will have even more possibilities than xterm
 * [https://en.wikipedia.org/wiki/Windows-1252](https://en.wikipedia.org/wiki/Windows-1252) and Other
 * [https://invisible-island.net/xterm/ctlseqs/ctlseqs.html#h3-Extended-coordinates](https://invisible-island.net/xterm/ctlseqs/ctlseqs.html#h3-Extended-coordinates)
 * [http://www.sweger.com/ansiplus/EscSeqScroll.html](http://www.sweger.com/ansiplus/EscSeqScroll.html)  
-* [https://fr.wikipedia.org/wiki/American_Standard_Code_for_Information_Interchange](https://fr.wikipedia.org/wiki/American_Standard_Code_for_Information_Interchange)
+* [https://fr.wikipedia.org/wiki/American_Standard_Code_for_Information_Interchange](https://fr.wikipedia.org/wiki/American_Standard_Code_for_Information_Interchange)<BR />
+
+
+USE DEMO termvte  your terminal   $HOME/..../termvte $HOME/..../keyboard  <BR />
+  
+for test import termcurs   non stable juste download <BR />
+
 
 
 
@@ -97,6 +103,10 @@ i did this to work with nim to understand some subtlety
 
 &rarr;&nbsp; 2020-08-26   correctif change: special character conformité and terminal and UTF8   
 
+&rarr;&nbsp; 2020-11-01   correctif change: Key -> TKey getKey -> getTkey  ( nim posix use key)
+)
+&rarr;&nbsp; 2020-11-01   correctif change: fdTerm = fd +1  ( if using posix ex (mq_open) posix initializes fd 0) 
+
 .  
 
 .  
@@ -122,7 +132,7 @@ proc onCursor() {...}
 
 proc getCursor(line: var Natural; cols: var Natural) {...}
 
-proc getKey(): (Key, Ckey.Chr) {...}
+proc getTKey(): (Key, Ckey.Chr) {...}
 
 proc getFunc(curs: bool = false): (Key) {...}
 

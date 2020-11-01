@@ -3,16 +3,17 @@
 #		Linux
 #
 # Inspiration johnnovak/illwill and JPLAS400PC C++
-# retrieve keyboard UTF8  terminal nim
+# retrieve keyboard UTF8
 #======================================================
 
 
-import  posix,tables, terminal, termios , bitops
-import  strformat ,strutils
+import  posix, termios , termios , bitops
+import  tables, terminal
+import  strformat, strutils
 
 type
-  Key* {.pure.} = enum
-      None = "None", Char ="Char",
+  TKey* {.pure.} = enum
+      None   = "None", Char ="Char",
       CtrlA  = "CtrlA",
       CtrlB  = "CtrlB",
       CtrlC  = "CtrlC",
@@ -99,7 +100,7 @@ type
 # call appel application extern
 # proc appel fonction proc interne
 
-const intListKey: array[Key, int] = [-1,0,
+const intListKey: array[TKey, int] = [-1,0,
     1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,
     127,
     1000,1001,1002,1003,1004,1005,1006,1007,1008,1009,1010,
@@ -109,71 +110,71 @@ const intListKey: array[Key, int] = [-1,0,
 
 let
   keySequences = {
-    intListKey[Key.Up]:        @["\eOA", "\e[A"],
-    intListKey[Key.Down]:      @["\eOB", "\e[B"],
-    intListKey[Key.Right]:     @["\eOC", "\e[C"],
-    intListKey[Key.Left]:      @["\eOD", "\e[D"],
+    intListKey[TKey.Up]:        @["\eOA", "\e[A"],
+    intListKey[TKey.Down]:      @["\eOB", "\e[B"],
+    intListKey[TKey.Right]:     @["\eOC", "\e[C"],
+    intListKey[TKey.Left]:      @["\eOD", "\e[D"],
 
-    intListKey[Key.Home]:      @["\e[1~", "\e[7~", "\eOH", "\e[H"],
-    intListKey[Key.Insert]:    @["\e[2~"],
-    intListKey[Key.Delete]:    @["\e[3~"],
-    intListKey[Key.End]:       @["\e[4~", "\e[8~", "\eOF", "\e[F"],
-    intListKey[Key.PageUp]:    @["\e[5~"],
-    intListKey[Key.PageDown]:  @["\e[6~"],
+    intListKey[TKey.Home]:      @["\e[1~", "\e[7~", "\eOH", "\e[H"],
+    intListKey[TKey.Insert]:    @["\e[2~"],
+    intListKey[TKey.Delete]:    @["\e[3~"],
+    intListKey[TKey.End]:       @["\e[4~", "\e[8~", "\eOF", "\e[F"],
+    intListKey[TKey.PageUp]:    @["\e[5~"],
+    intListKey[TKey.PageDown]:  @["\e[6~"],
 
-    intListKey[Key.F1]:        @["\e[11~", "\eOP"],
-    intListKey[Key.F2]:        @["\e[12~", "\eOQ"],
-    intListKey[Key.F3]:        @["\e[13~", "\eOR"],
-    intListKey[Key.F4]:        @["\e[14~", "\eOS"],
-    intListKey[Key.F5]:        @["\e[15~"],
-    intListKey[Key.F6]:        @["\e[17~"],
-    intListKey[Key.F7]:        @["\e[18~"],
-    intListKey[Key.F8]:        @["\e[19~"],
-    intListKey[Key.F9]:        @["\e[20~"],
-    intListKey[Key.F10]:       @["\e[21~"],
-    intListKey[Key.F11]:       @["\e[23~"],
-    intListKey[Key.F12]:       @["\e[24~"],
-    intListKey[Key.F13]:       @["\e[1;2P"],
-    intListKey[Key.F14]:       @["\e[1;2Q"],
-    intListKey[Key.F15]:       @["\e[1;2R"],
-    intListKey[Key.F16]:       @["\e[1;2S"],
-    intListKey[Key.F17]:       @["\e[15;2~"],
-    intListKey[Key.F18]:       @["\e[17;2~"],
-    intListKey[Key.F19]:       @["\e[18;2~"],
-    intListKey[Key.F20]:       @["\e[19;2~"],
-    intListKey[Key.F21]:       @["\e[20;2~"],
-    intListKey[Key.F22]:       @["\e[21;2~"],
-    intListKey[Key.F23]:       @["\e[23;2~"],
-    intListKey[Key.F24]:       @["\e[24;2~"],
+    intListKey[TKey.F1]:        @["\e[11~", "\eOP"],
+    intListKey[TKey.F2]:        @["\e[12~", "\eOQ"],
+    intListKey[TKey.F3]:        @["\e[13~", "\eOR"],
+    intListKey[TKey.F4]:        @["\e[14~", "\eOS"],
+    intListKey[TKey.F5]:        @["\e[15~"],
+    intListKey[TKey.F6]:        @["\e[17~"],
+    intListKey[TKey.F7]:        @["\e[18~"],
+    intListKey[TKey.F8]:        @["\e[19~"],
+    intListKey[TKey.F9]:        @["\e[20~"],
+    intListKey[TKey.F10]:       @["\e[21~"],
+    intListKey[TKey.F11]:       @["\e[23~"],
+    intListKey[TKey.F12]:       @["\e[24~"],
+    intListKey[TKey.F13]:       @["\e[1;2P"],
+    intListKey[TKey.F14]:       @["\e[1;2Q"],
+    intListKey[TKey.F15]:       @["\e[1;2R"],
+    intListKey[TKey.F16]:       @["\e[1;2S"],
+    intListKey[TKey.F17]:       @["\e[15;2~"],
+    intListKey[TKey.F18]:       @["\e[17;2~"],
+    intListKey[TKey.F19]:       @["\e[18;2~"],
+    intListKey[TKey.F20]:       @["\e[19;2~"],
+    intListKey[TKey.F21]:       @["\e[20;2~"],
+    intListKey[TKey.F22]:       @["\e[21;2~"],
+    intListKey[TKey.F23]:       @["\e[23;2~"],
+    intListKey[TKey.F24]:       @["\e[24;2~"],
 
-    intListKey[Key.STab]:      @["[279190"],
+    intListKey[TKey.STab]:      @["[279190"],
 
-    intListKey[Key.altA]:       @["2797"],
-    intListKey[Key.altB]:       @["2798"],
-    intListKey[Key.altC]:       @["2799"],
-    intListKey[Key.altD]:       @["27100"],
-    intListKey[Key.altE]:       @["27101"],
-    intListKey[Key.altF]:       @["27102"],
-    intListKey[Key.altG]:       @["27103"],
-    intListKey[Key.altH]:       @["27104"],
-    intListKey[Key.altI]:       @["27105"],
-    intListKey[Key.altJ]:       @["27106"],
-    intListKey[Key.altK]:       @["27107"],
-    intListKey[Key.altL]:       @["27108"],
-    intListKey[Key.altM]:       @["27109"],
-    intListKey[Key.altN]:       @["27110"],
-    intListKey[Key.altO]:       @["27111"],
-    intListKey[Key.altP]:       @["27112"],
-    intListKey[Key.altQ]:       @["27113"],
-    intListKey[Key.altR]:       @["27114"],
-    intListKey[Key.altS]:       @["27115"],
-    intListKey[Key.altT]:       @["27116"],
-    intListKey[Key.altU]:       @["27117"],
-    intListKey[Key.altV]:       @["27118"],
-    intListKey[Key.altW]:       @["27119"],
-    intListKey[Key.altX]:       @["27120"],
-    intListKey[Key.altY]:       @["27121"],
-    intListKey[Key.altZ]:       @["27122"]
+    intListKey[TKey.altA]:       @["2797"],
+    intListKey[TKey.altB]:       @["2798"],
+    intListKey[TKey.altC]:       @["2799"],
+    intListKey[TKey.altD]:       @["27100"],
+    intListKey[TKey.altE]:       @["27101"],
+    intListKey[TKey.altF]:       @["27102"],
+    intListKey[TKey.altG]:       @["27103"],
+    intListKey[TKey.altH]:       @["27104"],
+    intListKey[TKey.altI]:       @["27105"],
+    intListKey[TKey.altJ]:       @["27106"],
+    intListKey[TKey.altK]:       @["27107"],
+    intListKey[TKey.altL]:       @["27108"],
+    intListKey[TKey.altM]:       @["27109"],
+    intListKey[TKey.altN]:       @["27110"],
+    intListKey[TKey.altO]:       @["27111"],
+    intListKey[TKey.altP]:       @["27112"],
+    intListKey[TKey.altQ]:       @["27113"],
+    intListKey[TKey.altR]:       @["27114"],
+    intListKey[TKey.altS]:       @["27115"],
+    intListKey[TKey.altT]:       @["27116"],
+    intListKey[TKey.altU]:       @["27117"],
+    intListKey[TKey.altV]:       @["27118"],
+    intListKey[TKey.altW]:       @["27119"],
+    intListKey[TKey.altX]:       @["27120"],
+    intListKey[TKey.altY]:       @["27121"],
+    intListKey[TKey.altZ]:       @["27122"]
 
 
 
@@ -362,15 +363,22 @@ proc eventMouseInfo(keyBuf: array[KeySequenceMaxLen, int]) =
 #======================================================
 
 ## Modification of the terminal for keyboard reading without stdout.write
-let fd = getFileHandle(stdin)
+## duplicate fd is use Posix default fd = 0
+
+
+var fd :cint  = getFileHandle(stdin)
 var oldMode: Termios
 var Screen :bool = false
+var fdTerm :cint = fd + 1
 
 proc openRAW(fd: FileHandle, time: cint = TCSAFLUSH) =
   if Screen == true : return
   var mode: Termios
   discard fd.tcGetAttr(addr oldMode)
-  discard fd.tcGetAttr(addr mode)
+
+  discard dup2(fd,fdTerm)
+
+  discard fdTerm.tcGetAttr(addr mode)
   mode.c_iflag = mode.c_iflag and not Cflag(BRKINT or ICRNL or INPCK or  ISTRIP or IXON)
   mode.c_oflag = mode.c_oflag and not Cflag(OPOST)
   mode.c_cflag = (mode.c_cflag and not Cflag(CSIZE or PARENB)) or CS8
@@ -378,8 +386,7 @@ proc openRAW(fd: FileHandle, time: cint = TCSAFLUSH) =
   mode.c_cc[VMIN] = 0.cuchar
   mode.c_cc[VTIME] = 0.cuchar
   discard fd.tcSetAttr(time, addr mode)
-
-
+  discard fdTerm.tcSetAttr(time, addr mode)
 
 
 
@@ -478,18 +485,18 @@ proc getCursor*(line : var Natural ;cols : var Natural ) =
 # global keycode buffer
 var keyBuf: array[KeySequenceMaxLen,int]
 
-proc toKey(c: int): Key =
+proc toKey(c: int): TKey =
   if c > int(31) and c < int(127) : 
-    return Key.Char
+    return TKey.Char
 
   elif c > int(127) and c < int(256) : 
-    return Key.Char
+    return TKey.Char
   
   for i in low(intListkey)..high(intListkey):
     if c == intListKey[i] : 
-      return Key(i)
+      return TKey(i)
 
-  result= Key.None
+  result= TKey.None
 
 
   
@@ -502,23 +509,23 @@ type
     Chr : string
 
 
-proc parseKey(charsRead: int): (Key , Ckey.Chr) =
+proc parseKey(charsRead: int): (TKey , Ckey.Chr) =
   var inputSeq = ""
-  var key = Key.Char
+  var codekey = TKey.Char
 
   if charsRead == 1:
     let ch = keyBuf[0]
     case ch:
-    of   9: key = Key.Tab
-    of  10: key = Key.Enter
-    of  27: key = Key.Escape
-    of 127: key = Key.Backspace
+    of   9: codekey = TKey.Tab
+    of  10: codekey = TKey.Enter
+    of  27: codekey = TKey.Escape
+    of 127: codekey = TKey.Backspace
     of 0, 29, 30, 31: discard   
     else:
-      key = toKey(ch)
-      if key == Key.Char : 
+      codekey = toKey(ch)
+      if codekey == TKey.Char : 
         inputSeq &= char(keyBuf[0])
-    return (key,inputSeq)
+    return (codekey,inputSeq)
 
   if keyBuf[0] == 27 and charsRead == 2 :
     inputSeq &= "27"
@@ -526,18 +533,18 @@ proc parseKey(charsRead: int): (Key , Ckey.Chr) =
     for keyCode, sequences in keySequences.pairs:
       for s in sequences:
         if s == inputSeq:
-          key = toKey(keyCode)
+          codekey = toKey(keyCode)
           inputSeq =""
           break
-    if key == Char : key = Key.None
-    return (key,"")
+    if codekey == Char : codekey = TKey.None
+    return (codekey,"")
 
   elif charsRead > 3 and keyBuf[0] == 27 and keyBuf[1] == 91 and keyBuf[2] == 60: # TODO what are these :)
       eventMouseInfo(keyBuf)
-      return (Key.Mouse,"")
+      return (TKey.Mouse,"")
 
   elif charsRead == 3 and keyBuf[0] == 27 and keyBuf[1] == 91 and keyBuf[2] == 90: # TODO what are these :)
-      return (Key.Stab,"")
+      return (TKey.Stab,"")
   
   for i in 0..<charsRead:
     inputSeq &= char(keyBuf[i])
@@ -545,11 +552,11 @@ proc parseKey(charsRead: int): (Key , Ckey.Chr) =
   for keyCode, sequences in keySequences.pairs:
     for s in sequences:
       if s == inputSeq:
-        key = toKey(keyCode)
+        codekey = toKey(keyCode)
         inputSeq =""
         break
-  if key == Key.None : key = Key.Char
-  return (key,inputSeq)
+  if codekey == TKey.None : codekey = TKey.Char
+  return (codekey,inputSeq)
 
 proc gotoXY*(line: Natural ; cols : Natural)
 
@@ -558,9 +565,10 @@ proc gotoXY*(line: Natural ; cols : Natural)
 #======================================================
 
 ## get the keyboard keys from the terminal
-proc getKey*() : (Key , Ckey.Chr) =
-  var key = Key.None
+proc getTKey*() : (TKey , Ckey.Chr) =
+  var codekey = TKey.None
   var chr : string
+  
   while true :
     ## clean buffer
     var i = 0
@@ -571,16 +579,16 @@ proc getKey*() : (Key , Ckey.Chr) =
     ## read keyboard or Mouse
     stdin.flushFile
     while true  :
-      var ncar = read(0, keyBuf[i].addr, 1)
+      var ncar = read(fdTerm, keyBuf[i].addr, 1)
       if ncar == 0 and i > 0 : break
       if ncar > 0 : i += 1
     ## decrypt Data
-    (key, chr) = parseKey(i)
-    if key != Key.None : return (key, chr)
+    (codekey, chr) = parseKey(i)
+    if codekey != TKey.None : return (codekey, chr)
 
 ## get the keyboard keys from the terminal
-proc getFunc*(curs : bool = false) : (Key) =
-  var key = Key.None
+proc getFunc*(curs : bool = false) : (TKey) =
+  var codekey = TKey.None
   var chr : string
   while true :
     stdin.flushFile
@@ -593,12 +601,12 @@ proc getFunc*(curs : bool = false) : (Key) =
     ## read keyboard or Mouse
     while true  :
       if curs == false : hideCursor()
-      var ncar = read(0, keyBuf[i].addr, 1)
+      var ncar = read(fdTerm, keyBuf[i].addr, 1)
       if ncar == 0 and i > 0 : break
       if ncar > 0 : i += 1
     ## decrypt Data
-    (key, chr) = parseKey(i)
-    if key != Key.None and key != Key.Char  : return (key)
+    (codekey, chr) = parseKey(i)
+    if codekey != TKey.None and codekey != TKey.Char  : return (codekey)
 
 
 proc gotoXY*(line: Natural ; cols : Natural) =
