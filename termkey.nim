@@ -390,8 +390,6 @@ proc openRAW(fd: FileHandle, time: cint = TCSAFLUSH) =
 
 
 
-
-
 proc titleScreen*( title :string)=
   if title != "" :
     const CSIstart = 0x1b.chr & "]" & "0" & ";"
@@ -414,12 +412,16 @@ proc initScreen*(line ,cols : Natural; title : string ="") =
     fd.openRAW()
     resizeScreen(line,cols)
     titleScreen(title)
+    stdout.write(fmt"{CSI}1;1H{CSI}2J")
+    stdout.flushFile
     Screen = true
 
 
 proc initScreen*() =
   if Screen == false :
     fd.openRAW()
+    stdout.write(fmt"{CSI}1;1H{CSI}2J")
+    stdout.flushFile
     Screen = true
 
 # restor terminal 
@@ -650,3 +652,9 @@ proc upScrool*(line : Natural) =
 proc downScrool*(line : Natural) =
   stdout.write(fmt"{CSI}{line}T")
   stdout.flushFile
+  
+proc clsTerm*() =
+  offCursor()
+  stdout.write(fmt"{CSI}1;1H{CSI}2J")
+  stdout.flushFile
+  onCursor()   

@@ -76,43 +76,46 @@ for test import termcurs   non stable juste download <BR />
 
 
 
-* Provision of special characters    
+* Provision of special characters<BR />
 
 
-i did this to work with nim to understand some subtlety  
+i did this to work with nim to understand some subtlety<BR />
 
 
-**Update**
-&rarr;&nbsp; 2020-04-16   add  proc (key) = getFunc()  read touche  omit key.Char 
+**Update**<BR />
+&rarr;&nbsp; 2020-04-16   add  proc (key) = getFunc()  read touche  omit key.Char<BR />
 
-&rarr;&nbsp; 2020-04-18   correctif line 572   if key == Key.None : key = Key.Char
+&rarr;&nbsp; 2020-04-18   correctif line 572   if key == Key.None : key = Key.Char<BR />
 
-&rarr;&nbsp; 2020-04-20   correctif Key/Car change: enum  
+&rarr;&nbsp; 2020-04-20   correctif Key/Car change: enum<BR />
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * to respect enum:adding the table with a functional suite  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * to respect enum:adding the table with a functional suite<BR />
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Car = Facilitates special character display  
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Car = Facilitates special character display<BR />
 
-&rarr;&nbsp; 2020-06-20   additif Key.ATTN&nbsp;Key.PROC&nbsp;Key.CALL&nbsp;&nbsp;&nbsp; Keyboard simulation done by the program and not by the keyboard
+&rarr;&nbsp; 2020-06-20   additif Key.ATTN&nbsp;Key.PROC&nbsp;Key.CALL&nbsp;&nbsp;&nbsp; Keyboard simulation done by the program and not by the keyboard<BR />
 
-&rarr;&nbsp; 2020-06-02   proc (key) = getFunc(curs : bool = false)&nbsp;&nbsp;&nbsp;improves function
+&rarr;&nbsp; 2020-06-02   proc (key) = getFunc(curs : bool = false)&nbsp;&nbsp;&nbsp;improves function<BR />
 
-&rarr;&nbsp; 2020-06-24   correctif Mouse I solved the problem : scratching  
+&rarr;&nbsp; 2020-06-24   correctif Mouse I solved the problem : scratching<BR />
 
-&rarr;&nbsp; 2020-06-26   Addition hide show cursor, only for harmonization and other module & mouse  
+&rarr;&nbsp; 2020-06-26   Addition hide show cursor, only for harmonization and other module & mouse<BR />
 
-&rarr;&nbsp; 2020-08-26   correctif change: special character conformité and terminal and UTF8   
+&rarr;&nbsp; 2020-08-26   correctif change: special character conformité and terminal and UTF8<BR />
 
-&rarr;&nbsp; 2020-11-01   correctif change: Key -> TKey getKey -> getTkey  ( nim posix use key)
-)
-&rarr;&nbsp; 2020-11-01   correctif change: fdTerm = fd +1  ( if using posix ex (mq_open) posix initializes fd 0) 
+&rarr;&nbsp; 2020-11-01   correctif change: Key -> TKey getKey -> getTkey  ( nim posix use key)<BR />
 
-.  
+&rarr;&nbsp; 2020-11-01   correctif change: fdTerm = fd +1  ( if using posix  initializes fd 0)<BR />  
 
-.  
+&rarr;&nbsp; 2020-11-05   correctif add : clsTerm clear Terminal <BR />  
 
-.  
+&rarr;&nbsp; 2020-11-05   correctif change: initScreen (add clear terminal) <BR />
 
+.<BR />
+
+.<BR />
+
+.<BR />
 
 ***Proc***
 
