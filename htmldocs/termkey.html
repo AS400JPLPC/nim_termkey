@@ -178,6 +178,11 @@ function main() {
     title="gotoXY(line: Natural; cols: Natural)">gotoXY,Natural,Natural<span class="attachedType"></span></a></li>
 
   </ul>
+  <ul class="simple nested-toc-section">clsTerm
+      <li><a class="reference" href="#clsTerm"
+    title="clsTerm()">clsTerm<span class="attachedType"></span></a></li>
+
+  </ul>
   <ul class="simple nested-toc-section">downScrool
       <li><a class="reference" href="#downScrool%2CNatural"
     title="downScrool(line: Natural)">downScrool,Natural<span class="attachedType"></span></a></li>
@@ -378,7 +383,7 @@ function main() {
 
 </dd>
 <a id="initScreen"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#initScreen"><span class="Identifier">initScreen</span></a><span class="Other">(</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<dt><pre><span class="Keyword">proc</span> <a href="#initScreen"><span class="Identifier">initScreen</span></a><span class="Other">(</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
 <dd>
 
 
@@ -488,6 +493,13 @@ function main() {
 
 
 </dd>
+<a id="clsTerm"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#clsTerm"><span class="Identifier">clsTerm</span></a><span class="Other">(</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+
+
+</dd>
 
 </dl></div>
 
@@ -498,7 +510,7 @@ function main() {
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2020-11-01 03:12:41 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2020-11-07 13:43:25 UTC</small>
       </div>
     </div>
   </div>

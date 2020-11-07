@@ -120,8 +120,7 @@ i did this to work with nim to understand some subtlety<BR />
 
 .<BR />
 
-***Proc***
-
+***Proc***.<BR />
 proc titleScreen(title: string) {...}
 
 proc resizeScreen(line, cols: Natural) {...}
@@ -138,9 +137,9 @@ proc onCursor() {...}
 
 proc getCursor(line: var Natural; cols: var Natural) {...}
 
-proc getTKey(): (Key, Ckey.Chr) {...}
+proc getTKey(): (TKey, Ckey.Chr) {...}
 
-proc getFunc(curs: bool = false): (Key) {...}
+proc getFunc(curs: bool = false): (TKey) {...}
 
 proc gotoXY(line: Natural; cols: Natural) {...}
 
@@ -157,3 +156,9 @@ proc offScroll(): bool {...}
 proc upScrool(line: Natural) {...}
 
 proc downScrool(line: Natural) {...}
+
+proc clsTerm() {...}
+<BR />
+<BR />
+
+**Made with Nim. Generated: 2020-11-07 13:43:25 UTC**
