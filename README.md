@@ -70,8 +70,8 @@ If you use the VteTERM project you will have even more possibilities than xterm
 
 
 USE DEMO termvte  your terminal   $HOME/..../termvte $HOME/..../keyboard  <BR />
-  
-for test import termcurs   non stable juste download <BR />
+<BR />
+USE DEMO ex: your terminal xfce4-terminal   $ ./keyboard <BR />
 
 
 
