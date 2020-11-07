@@ -1,9 +1,14 @@
-# nim_termkey
-terminal keyboard and mouse resize ...
+# nim_termkey<br />
 
-doc : [TERMKEY](http://htmlpreview.github.io/?https://github.com/AS400JPLPC/nim_termkey/blob/master/htmldocs/termkey.html)
+**terminal keyboard and mouse resize ...**<br />
 
-**A library to manage the keyboard on a terminal, the mouse, with a set of functions to initialize as we must do when we talk with the terminal example for applications of the curse type.**<br />
+
+doc : [TERMKEY](http://htmlpreview.github.io/?https://github.com/AS400JPLPC/nim_termkey/blob/master/htmldocs/termkey.html)<br />
+
+
+**A library to manage the keyboard on a terminal, the mouse, with a set of functions to initialize as we must do when we talk with the terminal example for applications of the curse type.**<br /><br />
+<br />
+
 &rarr;&nbsp;It's in pure Nim and UTF8<br />
 &rarr;&nbsp;some keys not coming from the keyboard are introduced such that ATTN PROC CALL allows in certain situations to simulate programs or functions.<br />
 &rarr;&nbsp;all the characters remain consistent with the management of a terminal on Linux<br />
