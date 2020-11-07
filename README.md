@@ -1,5 +1,5 @@
 # nim_termkey
-gestion terminal keyboard and mouse resize ...
+terminal keyboard and mouse resize ...
 
 doc : [TERMKEY](http://htmlpreview.github.io/?https://github.com/AS400JPLPC/nim_termkey/blob/master/htmldocs/termkey.html)
 
@@ -16,9 +16,9 @@ doc : [TERMKEY](http://htmlpreview.github.io/?https://github.com/AS400JPLPC/nim_
 
 **nim pure**
 
-gestion Mouse
+management Mouse
 
-gestion full keyboard
+management full keyboard
 
 <u>Keyboard management and respect for the terminal philosophy</u><br />
 
