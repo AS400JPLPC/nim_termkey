@@ -26,46 +26,44 @@ management full keyboard
 the function keys being common to keyboards
 the character keys are UTF8  
 
-&rarr;&nbsp;use in conjunction with a libvte program, you can easily resize / change title as you see fit.  
-
-&rarr;&nbsp;for Xterm  
-sudo mousepad /etc/X11/app-defaults/XTerm  
-* allowWindowOps: true
-* eightBitInput: false
-
-
-If you use the VteTERM project you will have even more possibilities than xterm
+&rarr;&nbsp;for Xterm   **UBUNTU** <BR />
+sudo mousepad /etc/X11/app-defaults/XTerm <BR />
+* allowWindowOps: true <BR />
+* eightBitInput: false <BR /><BR />
+&rarr;&nbsp;Manjaro xfce4 not problème is terminal<BR /> 
+&rarr;&nbsp;If you use the VteTERM project you will have even more possibilities than xterm<BR />
 
 
 
-&rarr;&nbsp;***function***:  
-&ndash;&nbsp; crtlA..Z  
-&ndash;&nbsp; altA..Z
-&ndash;&nbsp; F1..F24
-&ndash;&nbsp; tab ... inser&nbsp;delete&nbsp;home&nbsp;end&nbsp;page&nbsp;up&nbsp;down&nbsp;left&nbsp;rigth&nbsp;esc  
-&ndash;&nbsp; other&nbsp;full&nbsp;char  
-&rarr;&nbsp;Special function
-&ndash;&nbsp; scrolling area with page before or page after  
-&ndash;&nbsp; in my experience, switching on the automation managed by escape mode does nothing good except the possibility of manually scrolling by program in a specific area the test will show you.    
+&rarr;&nbsp;***function***:<BR />
+&ndash;&nbsp; crtlA..Z<BR />
+&ndash;&nbsp; altA..Z<BR />
+&ndash;&nbsp; F1..F24<BR />
+&ndash;&nbsp; tab ... inser&nbsp;delete&nbsp;home&nbsp;end&nbsp;page&nbsp;up&nbsp;down&nbsp;left&nbsp;rigth&nbsp;esc<BR />
+&ndash;&nbsp; other&nbsp;full&nbsp;char<BR />
+&rarr;&nbsp;***Special function***<BR />
+&ndash;&nbsp; scrolling area with page before or page after<BR />
+&ndash;&nbsp; in my experience, switching on the automation managed by escape mode does nothing good except the possibility of manually scrolling by program in a specific area the test will show you.<BR />
 
-&ndash;&nbsp; Keyboard simulation done by the program and not by the keyboard
+&ndash;&nbsp; Keyboard simulation done by the program and not by the keyboard<BR />
 
-&ndash;&nbsp; ATTN keyboard simulation&nbsp;&nbsp;&rarr;Passes program name to application server
+&ndash;&nbsp; ATTN keyboard simulation&nbsp;&nbsp;&rarr;Passes program name to application server<BR />
 
-&ndash;&nbsp; PROC keyboard simulation&nbsp;&nbsp;&rarr;Transmits the name of the procedure to be executed in Internal
+&ndash;&nbsp; PROC keyboard simulation&nbsp;&nbsp;&rarr;Transmits the name of the procedure to be executed in Internal<BR />
 
-&ndash;&nbsp; CALL keyboard simulation&nbsp;&nbsp;&rarr;Transmits the name of the procedure to be executed in External
+&ndash;&nbsp; CALL keyboard simulation&nbsp;&nbsp;&rarr;Transmits the name of the procedure to be executed in External<BR />
 
-&ndash;&nbsp;(key,chr ) = getKey()
-&ndash;&nbsp;(key) = getFunc()
+&ndash;&nbsp;(key,chr ) = getKey()<BR />
 
-*I would like to thank*
+&ndash;&nbsp;(key) = getFunc()<BR />
 
-* [https://github.com/johnnovak/illwill](https://github.com/johnnovak/illwill)
-* [https://github.com/nim-lang/Nim/blob/version-1-0/lib/pure/terminal.nim#L50](https://github.com/nim-lang/Nim/blob/version-1-0/lib/pure/terminal.nim#L50)
-* [https://en.wikipedia.org/wiki/Windows-1252](https://en.wikipedia.org/wiki/Windows-1252) and Other
-* [https://invisible-island.net/xterm/ctlseqs/ctlseqs.html#h3-Extended-coordinates](https://invisible-island.net/xterm/ctlseqs/ctlseqs.html#h3-Extended-coordinates)
-* [http://www.sweger.com/ansiplus/EscSeqScroll.html](http://www.sweger.com/ansiplus/EscSeqScroll.html)  
+*I would like to thank*<BR />
+
+* [https://github.com/johnnovak/illwill](https://github.com/johnnovak/illwill)<BR />
+* [https://github.com/nim-lang/Nim/blob/version-1-0/lib/pure/terminal.nim#L50](https://github.com/nim-lang/Nim/blob/version-1-0/lib/pure/terminal.nim#L50)<BR />
+* [https://en.wikipedia.org/wiki/Windows-1252](https://en.wikipedia.org/wiki/Windows-1252) and Other<BR />
+* [https://invisible-island.net/xterm/ctlseqs/ctlseqs.html#h3-Extended-coordinates](https://invisible-island.net/xterm/ctlseqs/ctlseqs.html#h3-Extended-coordinates)<BR />
+* [http://www.sweger.com/ansiplus/EscSeqScroll.html](http://www.sweger.com/ansiplus/EscSeqScroll.html)<BR />
 * [https://fr.wikipedia.org/wiki/American_Standard_Code_for_Information_Interchange](https://fr.wikipedia.org/wiki/American_Standard_Code_for_Information_Interchange)<BR />
 
 
