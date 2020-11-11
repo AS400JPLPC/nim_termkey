@@ -117,8 +117,8 @@ function main() {
   altT = &quot;altT&quot;, altU = &quot;altU&quot;, altV = &quot;altV&quot;, altW = &quot;altW&quot;, altX = &quot;altX&quot;,
   altY = &quot;altY&quot;, altZ = &quot;altZ&quot;, Mouse = &quot;Mouse&quot;, ATTN = &quot;ATTN&quot;, CALL = &quot;CALL&quot;,
   PROC = &quot;PROC&quot;"><wbr />TKey<span class="attachedType"></span></a></li>
-  <li><a class="reference" href="#Car"
-    title="Car {.pure.} = enum
+  <li><a class="reference" href="#TCar"
+    title="TCar {.pure.} = enum
   Cent = &quot;¢&quot;, Currency = &quot;¤&quot;, Yen = &quot;¥&quot;, PipeBroken = &quot;¦&quot;, Copyright = &quot;©&quot;,
   Left2Quot = &quot;«&quot;, Registered = &quot;®&quot;, Degree = &quot;°&quot;, Plusminus = &quot;±&quot;,
   Expo2 = &quot;²&quot;, Expo3 = &quot;³&quot;, AcuteAccent = &quot;´&quot;, Micro = &quot;µ&quot;, Expo1 = &quot;¹&quot;,
@@ -131,7 +131,7 @@ function main() {
   Ombre1 = &quot;▒&quot;, Ombre2 = &quot;▓&quot;, UpBlack = &quot;▲&quot;, RightBlack = &quot;►&quot;,
   DownBlack = &quot;▼&quot;, LeftBlack = &quot;◄&quot;, Xtrue = &quot;◉&quot;, Xfalse = &quot;◎&quot;,
   Femele = &quot;♀&quot;, Male = &quot;♂&quot;, Pique = &quot;♠&quot;, Trefle = &quot;♣&quot;, Coeur = &quot;♥&quot;,
-  Carreau = &quot;♦&quot;, Audio = &quot;♫&quot;"><wbr />Car<span class="attachedType"></span></a></li>
+  Carreau = &quot;♦&quot;, Audio = &quot;♫&quot;"><wbr />TCar<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#MouseButtonAction"
     title="MouseButtonAction {.pure.} = enum
   mbaNone, mbaPressed, mbaReleased"><wbr />Mouse<wbr />Button<wbr />Action<span class="attachedType"></span></a></li>
@@ -152,20 +152,99 @@ function main() {
   <li><a class="reference" href="#ScrollDirection"
     title="ScrollDirection {.pure.} = enum
   sdNone, sdUp, sdDown"><wbr />Scroll<wbr />Direction<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#typCursor"
+    title="typCursor {.pure.} = enum
+  cnoBlink, cBlink, cSteady, cBlinkUnderline, cSteadyUnderline, cBlinkBar,
+  cSteadyBar"><wbr />typ<wbr />Cursor<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#Style"
+    title="Style = enum
+  styleBright = 1,          ## bright text
+  styleDim, styleItalic, styleUnderscore, styleBlink, styleBlinkRapid,
+  styleReverse, styleHidden, styleStrikethrough"><wbr />Style<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#ForegroundColor"
+    title="ForegroundColor = enum
+  fgBlack = 30,             ## black
+  fgRed, fgGreen, fgYellow, fgBlue, fgMagenta, fgCyan, fgWhite, fg8Bit,
+  fgDefault"><wbr />Foreground<wbr />Color<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#BackgroundColor"
+    title="BackgroundColor = enum
+  bgBlack = 40,             ## black
+  bgRed, bgGreen, bgYellow, bgBlue, bgMagenta, bgCyan, bgWhite, bg8Bit,
+  bgDefault"><wbr />Background<wbr />Color<span class="attachedType"></span></a></li>
 
   </ul>
 </li>
 <li>
   <a class="reference reference-toplevel" href="#12" id="62">Procs</a>
   <ul class="simple simple-toc-section">
-      <ul class="simple nested-toc-section">resizeScreen
-      <li><a class="reference" href="#resizeScreen%2CNatural%2CNatural"
-    title="resizeScreen(line, cols: Natural)">resizeScreen,Natural,Natural<span class="attachedType"></span></a></li>
+      <ul class="simple nested-toc-section">getFunc
+      <li><a class="reference" href="#getFunc%2Cbool"
+    title="getFunc(curs: bool = false): (TKey)">getFunc,bool<span class="attachedType"></span></a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">upScrool
+      <li><a class="reference" href="#upScrool%2CNatural"
+    title="upScrool(line: Natural)">upScrool,Natural<span class="attachedType"></span></a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">eraseDown
+      <li><a class="reference" href="#eraseDown"
+    title="eraseDown()">eraseDown<span class="attachedType"></span></a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">titleTerm
+      <li><a class="reference" href="#titleTerm%2Cstring"
+    title="titleTerm(title: string)">titleTerm,string<span class="attachedType"></span></a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">resetAttributes
+      <li><a class="reference" href="#resetAttributes"
+    title="resetAttributes()">resetAttributes<span class="attachedType"></span></a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">terminalWidth
+      <li><a class="reference" href="#terminalWidth"
+    title="terminalWidth(): int">terminalWidth<span class="attachedType"></span></a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">cursorForward
+      <li><a class="reference" href="#cursorForward%2Cint"
+    title="cursorForward(count = 1)">cursorForward,int<span class="attachedType"></span></a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">setForegroundColor
+      <li><a class="reference" href="#setForegroundColor%2CForegroundColor"
+    title="setForegroundColor(fg: ForegroundColor; bright = false)">setForegroundColor,ForegroundColor<span class="attachedType">ForegroundColor</span></a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">cursorUp
+      <li><a class="reference" href="#cursorUp%2Cint"
+    title="cursorUp(count = 1)">cursorUp,int<span class="attachedType"></span></a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">initTerm
+      <li><a class="reference" href="#initTerm%2CNatural%2CNatural%2Cstring"
+    title="initTerm(line, cols: Natural; title: string = &quot;&quot;)">initTerm,Natural,Natural,string<span class="attachedType"></span></a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">eraseLineEnd
+      <li><a class="reference" href="#eraseLineEnd"
+    title="eraseLineEnd()">eraseLineEnd<span class="attachedType"></span></a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">setStyle
+      <li><a class="reference" href="#setStyle%2Cset%5BStyle%5D"
+    title="setStyle(style: set[Style])">setStyle,set[Style]<span class="attachedType">Style</span></a></li>
 
   </ul>
   <ul class="simple nested-toc-section">offCursor
       <li><a class="reference" href="#offCursor"
     title="offCursor()">offCursor<span class="attachedType"></span></a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">eraseUp
+      <li><a class="reference" href="#eraseUp"
+    title="eraseUp()">eraseUp<span class="attachedType"></span></a></li>
 
   </ul>
   <ul class="simple nested-toc-section">getMouse
@@ -178,9 +257,34 @@ function main() {
     title="gotoXY(line: Natural; cols: Natural)">gotoXY,Natural,Natural<span class="attachedType"></span></a></li>
 
   </ul>
+  <ul class="simple nested-toc-section">eraseTerm
+      <li><a class="reference" href="#eraseTerm"
+    title="eraseTerm()">eraseTerm<span class="attachedType"></span></a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">iniTerm
+      <li><a class="reference" href="#iniTerm"
+    title="iniTerm()">iniTerm<span class="attachedType"></span></a></li>
+
+  </ul>
   <ul class="simple nested-toc-section">clsTerm
       <li><a class="reference" href="#clsTerm"
     title="clsTerm()">clsTerm<span class="attachedType"></span></a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">writeStyled
+      <li><a class="reference" href="#writeStyled%2Cstring%2Cset%5BStyle%5D"
+    title="writeStyled(txt: string; style: set[Style] = {styleBright})">writeStyled,string,set[Style]<span class="attachedType">Style</span></a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">resizeTerm
+      <li><a class="reference" href="#resizeTerm%2CNatural%2CNatural"
+    title="resizeTerm(line, cols: Natural)">resizeTerm,Natural,Natural<span class="attachedType"></span></a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">closeTerm
+      <li><a class="reference" href="#closeTerm"
+    title="closeTerm()">closeTerm<span class="attachedType"></span></a></li>
 
   </ul>
   <ul class="simple nested-toc-section">downScrool
@@ -188,9 +292,24 @@ function main() {
     title="downScrool(line: Natural)">downScrool,Natural<span class="attachedType"></span></a></li>
 
   </ul>
+  <ul class="simple nested-toc-section">setBackgroundColor
+      <li><a class="reference" href="#setBackgroundColor%2CBackgroundColor"
+    title="setBackgroundColor(bg: BackgroundColor; bright = false)">setBackgroundColor,BackgroundColor<span class="attachedType">BackgroundColor</span></a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">terminalHeight
+      <li><a class="reference" href="#terminalHeight"
+    title="terminalHeight(): int">terminalHeight<span class="attachedType"></span></a></li>
+
+  </ul>
   <ul class="simple nested-toc-section">getTKey
       <li><a class="reference" href="#getTKey"
     title="getTKey(): (TKey, Ckey.Chr)">getTKey<span class="attachedType"></span></a></li>
+
+  </ul>
+  <ul class="simple nested-toc-section">cursorDown
+      <li><a class="reference" href="#cursorDown%2Cint"
+    title="cursorDown(count = 1)">cursorDown,int<span class="attachedType"></span></a></li>
 
   </ul>
   <ul class="simple nested-toc-section">onMouse
@@ -208,19 +327,19 @@ function main() {
     title="onCursor()">onCursor<span class="attachedType"></span></a></li>
 
   </ul>
+  <ul class="simple nested-toc-section">eraseLineStart
+      <li><a class="reference" href="#eraseLineStart"
+    title="eraseLineStart()">eraseLineStart<span class="attachedType"></span></a></li>
+
+  </ul>
   <ul class="simple nested-toc-section">onScroll
       <li><a class="reference" href="#onScroll%2CNatural%2CNatural"
     title="onScroll(line, linePage: Natural): bool">onScroll,Natural,Natural<span class="attachedType"></span></a></li>
 
   </ul>
-  <ul class="simple nested-toc-section">titleScreen
-      <li><a class="reference" href="#titleScreen%2Cstring"
-    title="titleScreen(title: string)">titleScreen,string<span class="attachedType"></span></a></li>
-
-  </ul>
-  <ul class="simple nested-toc-section">closeScren
-      <li><a class="reference" href="#closeScren"
-    title="closeScren()">closeScren<span class="attachedType"></span></a></li>
+  <ul class="simple nested-toc-section">eraseLine
+      <li><a class="reference" href="#eraseLine"
+    title="eraseLine()">eraseLine<span class="attachedType"></span></a></li>
 
   </ul>
   <ul class="simple nested-toc-section">offMouse
@@ -233,21 +352,19 @@ function main() {
     title="getCursor(line: var Natural; cols: var Natural)">getCursor,Natural,Natural<span class="attachedType"></span></a></li>
 
   </ul>
-  <ul class="simple nested-toc-section">upScrool
-      <li><a class="reference" href="#upScrool%2CNatural"
-    title="upScrool(line: Natural)">upScrool,Natural<span class="attachedType"></span></a></li>
+  <ul class="simple nested-toc-section">gotoXPos
+      <li><a class="reference" href="#gotoXPos%2Cint"
+    title="gotoXPos(cols: int)">gotoXPos,int<span class="attachedType"></span></a></li>
 
   </ul>
-  <ul class="simple nested-toc-section">initScreen
-      <li><a class="reference" href="#initScreen%2CNatural%2CNatural%2Cstring"
-    title="initScreen(line, cols: Natural; title: string = &quot;&quot;)">initScreen,Natural,Natural,string<span class="attachedType"></span></a></li>
-  <li><a class="reference" href="#initScreen"
-    title="initScreen()">initScreen<span class="attachedType"></span></a></li>
+  <ul class="simple nested-toc-section">cursorBackward
+      <li><a class="reference" href="#cursorBackward%2Cint"
+    title="cursorBackward(count = 1)">cursorBackward,int<span class="attachedType"></span></a></li>
 
   </ul>
-  <ul class="simple nested-toc-section">getFunc
-      <li><a class="reference" href="#getFunc%2Cbool"
-    title="getFunc(curs: bool = false): (TKey)">getFunc,bool<span class="attachedType"></span></a></li>
+  <ul class="simple nested-toc-section">defCursor
+      <li><a class="reference" href="#defCursor%2CtypCursor"
+    title="defCursor(e_curs: typCursor = cnoBlink)">defCursor,typCursor<span class="attachedType"></span></a></li>
 
   </ul>
 
@@ -260,7 +377,7 @@ function main() {
   <div class="nine columns" id="content">
   <div id="tocRoot"></div>
   
-  <p class="module-desc">Modification of the terminal for keyboard reading without stdout.write duplicate fd is use Posix default fd = 0get the keyboard keys from the terminalget the keyboard keys from the terminal</p>
+  <p class="module-desc">Modification of the terminal for keyboard reading without stdout.write duplicate fd is use Posix default fd = 0 there is an ambiguity when using 'posix' orders which work from the base with FD = 0 hence the dup2 function</p>
   <div class="section" id="7">
 <h1><a class="toc-backref" href="#7">Types</a></h1>
 <dl class="item">
@@ -292,8 +409,8 @@ function main() {
 
 
 </dd>
-<a id="Car"></a>
-<dt><pre><a href="termkey.html#Car"><span class="Identifier">Car</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">pure</span></span><span class="Other">.}</span></span> <span class="Other">=</span> <span class="Keyword">enum</span>
+<a id="TCar"></a>
+<dt><pre><a href="termkey.html#TCar"><span class="Identifier">TCar</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">pure</span></span><span class="Other">.}</span></span> <span class="Other">=</span> <span class="Keyword">enum</span>
   <span class="Identifier">Cent</span> <span class="Other">=</span> <span class="StringLit">&quot;¢&quot;</span><span class="Other">,</span> <span class="Identifier">Currency</span> <span class="Other">=</span> <span class="StringLit">&quot;¤&quot;</span><span class="Other">,</span> <span class="Identifier">Yen</span> <span class="Other">=</span> <span class="StringLit">&quot;¥&quot;</span><span class="Other">,</span> <span class="Identifier">PipeBroken</span> <span class="Other">=</span> <span class="StringLit">&quot;¦&quot;</span><span class="Other">,</span> <span class="Identifier">Copyright</span> <span class="Other">=</span> <span class="StringLit">&quot;©&quot;</span><span class="Other">,</span>
   <span class="Identifier">Left2Quot</span> <span class="Other">=</span> <span class="StringLit">&quot;«&quot;</span><span class="Other">,</span> <span class="Identifier">Registered</span> <span class="Other">=</span> <span class="StringLit">&quot;®&quot;</span><span class="Other">,</span> <span class="Identifier">Degree</span> <span class="Other">=</span> <span class="StringLit">&quot;°&quot;</span><span class="Other">,</span> <span class="Identifier">Plusminus</span> <span class="Other">=</span> <span class="StringLit">&quot;±&quot;</span><span class="Other">,</span>
   <span class="Identifier">Expo2</span> <span class="Other">=</span> <span class="StringLit">&quot;²&quot;</span><span class="Other">,</span> <span class="Identifier">Expo3</span> <span class="Other">=</span> <span class="StringLit">&quot;³&quot;</span><span class="Other">,</span> <span class="Identifier">AcuteAccent</span> <span class="Other">=</span> <span class="StringLit">&quot;´&quot;</span><span class="Other">,</span> <span class="Identifier">Micro</span> <span class="Other">=</span> <span class="StringLit">&quot;µ&quot;</span><span class="Other">,</span> <span class="Identifier">Expo1</span> <span class="Other">=</span> <span class="StringLit">&quot;¹&quot;</span><span class="Other">,</span>
@@ -353,44 +470,114 @@ function main() {
 
 
 </dd>
+<a id="typCursor"></a>
+<dt><pre><a href="termkey.html#typCursor"><span class="Identifier">typCursor</span></a> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">pure</span></span><span class="Other">.}</span></span> <span class="Other">=</span> <span class="Keyword">enum</span>
+  <span class="Identifier">cnoBlink</span><span class="Other">,</span> <span class="Identifier">cBlink</span><span class="Other">,</span> <span class="Identifier">cSteady</span><span class="Other">,</span> <span class="Identifier">cBlinkUnderline</span><span class="Other">,</span> <span class="Identifier">cSteadyUnderline</span><span class="Other">,</span> <span class="Identifier">cBlinkBar</span><span class="Other">,</span>
+  <span class="Identifier">cSteadyBar</span></pre></dt>
+<dd>
+
+
+
+</dd>
+<a id="Style"></a>
+<dt><pre><a href="termkey.html#Style"><span class="Identifier">Style</span></a> <span class="Other">=</span> <span class="Keyword">enum</span>
+  <span class="Identifier">styleBright</span> <span class="Other">=</span> <span class="DecNumber">1</span><span class="Other">,</span>          <span class="Comment">## bright text</span>
+  <span class="Identifier">styleDim</span><span class="Other">,</span> <span class="Identifier">styleItalic</span><span class="Other">,</span> <span class="Identifier">styleUnderscore</span><span class="Other">,</span> <span class="Identifier">styleBlink</span><span class="Other">,</span> <span class="Identifier">styleBlinkRapid</span><span class="Other">,</span>
+  <span class="Identifier">styleReverse</span><span class="Other">,</span> <span class="Identifier">styleHidden</span><span class="Other">,</span> <span class="Identifier">styleStrikethrough</span></pre></dt>
+<dd>
+
+different styles for text output
+
+</dd>
+<a id="ForegroundColor"></a>
+<dt><pre><a href="termkey.html#ForegroundColor"><span class="Identifier">ForegroundColor</span></a> <span class="Other">=</span> <span class="Keyword">enum</span>
+  <span class="Identifier">fgBlack</span> <span class="Other">=</span> <span class="DecNumber">30</span><span class="Other">,</span>             <span class="Comment">## black</span>
+  <span class="Identifier">fgRed</span><span class="Other">,</span> <span class="Identifier">fgGreen</span><span class="Other">,</span> <span class="Identifier">fgYellow</span><span class="Other">,</span> <span class="Identifier">fgBlue</span><span class="Other">,</span> <span class="Identifier">fgMagenta</span><span class="Other">,</span> <span class="Identifier">fgCyan</span><span class="Other">,</span> <span class="Identifier">fgWhite</span><span class="Other">,</span> <span class="Identifier">fg8Bit</span><span class="Other">,</span>
+  <span class="Identifier">fgDefault</span></pre></dt>
+<dd>
+
+terminal's foreground colors
+
+</dd>
+<a id="BackgroundColor"></a>
+<dt><pre><a href="termkey.html#BackgroundColor"><span class="Identifier">BackgroundColor</span></a> <span class="Other">=</span> <span class="Keyword">enum</span>
+  <span class="Identifier">bgBlack</span> <span class="Other">=</span> <span class="DecNumber">40</span><span class="Other">,</span>             <span class="Comment">## black</span>
+  <span class="Identifier">bgRed</span><span class="Other">,</span> <span class="Identifier">bgGreen</span><span class="Other">,</span> <span class="Identifier">bgYellow</span><span class="Other">,</span> <span class="Identifier">bgBlue</span><span class="Other">,</span> <span class="Identifier">bgMagenta</span><span class="Other">,</span> <span class="Identifier">bgCyan</span><span class="Other">,</span> <span class="Identifier">bgWhite</span><span class="Other">,</span> <span class="Identifier">bg8Bit</span><span class="Other">,</span>
+  <span class="Identifier">bgDefault</span></pre></dt>
+<dd>
+
+terminal's background colors
+
+</dd>
 
 </dl></div>
 <div class="section" id="12">
 <h1><a class="toc-backref" href="#12">Procs</a></h1>
 <dl class="item">
-<a id="titleScreen,string"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#titleScreen%2Cstring"><span class="Identifier">titleScreen</span></a><span class="Other">(</span><span class="Identifier">title</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span>
-                                  <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
-<dd>
-
-
-
-</dd>
-<a id="resizeScreen,Natural,Natural"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#resizeScreen%2CNatural%2CNatural"><span class="Identifier">resizeScreen</span></a><span class="Other">(</span><span class="Identifier">line</span><span class="Other">,</span> <span class="Identifier">cols</span><span class="Other">:</span> <span class="Identifier">Natural</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span>
+<a id="defCursor,typCursor"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#defCursor%2CtypCursor"><span class="Identifier">defCursor</span></a><span class="Other">(</span><span class="Identifier">e_curs</span><span class="Other">:</span> <a href="termkey.html#typCursor"><span class="Identifier">typCursor</span></a> <span class="Other">=</span> <span class="Identifier">cnoBlink</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IOError</span><span class="Other">]</span><span class="Other">,</span>
     <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
 <dd>
 
+define type  Cursor form terminal
+
+</dd>
+<a id="getCursor,Natural,Natural"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#getCursor%2CNatural%2CNatural"><span class="Identifier">getCursor</span></a><span class="Other">(</span><span class="Identifier">line</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">Natural</span><span class="Other">;</span> <span class="Identifier">cols</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">Natural</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma">
+    <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+get Cursor form terminal
+
+</dd>
+<a id="getTKey"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#getTKey"><span class="Identifier">getTKey</span></a><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <span class="Other">(</span><a href="termkey.html#TKey"><span class="Identifier">TKey</span></a><span class="Other">,</span> <span class="Identifier">Ckey</span><span class="Other">.</span><span class="Identifier">Chr</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+get the keyboard keys from the terminal
+
+</dd>
+<a id="getFunc,bool"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#getFunc%2Cbool"><span class="Identifier">getFunc</span></a><span class="Other">(</span><span class="Identifier">curs</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">)</span><span class="Other">:</span> <span class="Other">(</span><a href="termkey.html#TKey"><span class="Identifier">TKey</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+get the keyboard keys from the terminal
+
+</dd>
+<a id="titleTerm,string"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#titleTerm%2Cstring"><span class="Identifier">titleTerm</span></a><span class="Other">(</span><span class="Identifier">title</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span>
+                                <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
 
 
 </dd>
-<a id="initScreen,Natural,Natural,string"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#initScreen%2CNatural%2CNatural%2Cstring"><span class="Identifier">initScreen</span></a><span class="Other">(</span><span class="Identifier">line</span><span class="Other">,</span> <span class="Identifier">cols</span><span class="Other">:</span> <span class="Identifier">Natural</span><span class="Other">;</span> <span class="Identifier">title</span><span class="Other">:</span> <span class="Identifier">string</span> <span class="Other">=</span> <span class="StringLit">&quot;&quot;</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma">
+<a id="resizeTerm,Natural,Natural"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#resizeTerm%2CNatural%2CNatural"><span class="Identifier">resizeTerm</span></a><span class="Other">(</span><span class="Identifier">line</span><span class="Other">,</span> <span class="Identifier">cols</span><span class="Other">:</span> <span class="Identifier">Natural</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span>
+                                       <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+
+
+</dd>
+<a id="initTerm,Natural,Natural,string"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#initTerm%2CNatural%2CNatural%2Cstring"><span class="Identifier">initTerm</span></a><span class="Other">(</span><span class="Identifier">line</span><span class="Other">,</span> <span class="Identifier">cols</span><span class="Other">:</span> <span class="Identifier">Natural</span><span class="Other">;</span> <span class="Identifier">title</span><span class="Other">:</span> <span class="Identifier">string</span> <span class="Other">=</span> <span class="StringLit">&quot;&quot;</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma">
     <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
 <dd>
 
 
 
 </dd>
-<a id="initScreen"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#initScreen"><span class="Identifier">initScreen</span></a><span class="Other">(</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<a id="iniTerm"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#iniTerm"><span class="Identifier">iniTerm</span></a><span class="Other">(</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
 <dd>
 
 
 
 </dd>
-<a id="closeScren"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#closeScren"><span class="Identifier">closeScren</span></a><span class="Other">(</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<a id="closeTerm"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#closeTerm"><span class="Identifier">closeTerm</span></a><span class="Other">(</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
 <dd>
 
 
@@ -410,35 +597,50 @@ function main() {
 
 
 </dd>
-<a id="getCursor,Natural,Natural"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#getCursor%2CNatural%2CNatural"><span class="Identifier">getCursor</span></a><span class="Other">(</span><span class="Identifier">line</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">Natural</span><span class="Other">;</span> <span class="Identifier">cols</span><span class="Other">:</span> <span class="Keyword">var</span> <span class="Identifier">Natural</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma">
-    <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
-<dd>
-
-
-
-</dd>
-<a id="getTKey"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#getTKey"><span class="Identifier">getTKey</span></a><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <span class="Other">(</span><a href="termkey.html#TKey"><span class="Identifier">TKey</span></a><span class="Other">,</span> <span class="Identifier">Ckey</span><span class="Other">.</span><span class="Identifier">Chr</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
-<dd>
-
-
-
-</dd>
-<a id="getFunc,bool"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#getFunc%2Cbool"><span class="Identifier">getFunc</span></a><span class="Other">(</span><span class="Identifier">curs</span><span class="Other">:</span> <span class="Identifier">bool</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">)</span><span class="Other">:</span> <span class="Other">(</span><a href="termkey.html#TKey"><span class="Identifier">TKey</span></a><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span>
-    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
-<dd>
-
-
-
-</dd>
 <a id="gotoXY,Natural,Natural"></a>
 <dt><pre><span class="Keyword">proc</span> <a href="#gotoXY%2CNatural%2CNatural"><span class="Identifier">gotoXY</span></a><span class="Other">(</span><span class="Identifier">line</span><span class="Other">:</span> <span class="Identifier">Natural</span><span class="Other">;</span> <span class="Identifier">cols</span><span class="Other">:</span> <span class="Identifier">Natural</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span>
     <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
 <dd>
 
 
+
+</dd>
+<a id="gotoXPos,int"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#gotoXPos%2Cint"><span class="Identifier">gotoXPos</span></a><span class="Other">(</span><span class="Identifier">cols</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+Sets the terminal's cursor to the x position. The y position is not changed.
+
+</dd>
+<a id="cursorUp,int"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#cursorUp%2Cint"><span class="Identifier">cursorUp</span></a><span class="Other">(</span><span class="Identifier">count</span> <span class="Other">=</span> <span class="DecNumber">1</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+Moves the cursor up by <tt class="docutils literal"><span class="pre">count</span></tt> rows.
+
+</dd>
+<a id="cursorDown,int"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#cursorDown%2Cint"><span class="Identifier">cursorDown</span></a><span class="Other">(</span><span class="Identifier">count</span> <span class="Other">=</span> <span class="DecNumber">1</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span>
+                             <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+Moves the cursor down by <tt class="docutils literal"><span class="pre">count</span></tt> rows.
+
+</dd>
+<a id="cursorForward,int"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#cursorForward%2Cint"><span class="Identifier">cursorForward</span></a><span class="Other">(</span><span class="Identifier">count</span> <span class="Other">=</span> <span class="DecNumber">1</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span>
+                                <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+Moves the cursor forward by <tt class="docutils literal"><span class="pre">count</span></tt> columns.
+
+</dd>
+<a id="cursorBackward,int"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#cursorBackward%2Cint"><span class="Identifier">cursorBackward</span></a><span class="Other">(</span><span class="Identifier">count</span> <span class="Other">=</span> <span class="DecNumber">1</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span>
+                                 <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+Moves the cursor backward by <tt class="docutils literal"><span class="pre">count</span></tt> columns.
 
 </dd>
 <a id="onMouse"></a>
@@ -467,14 +669,14 @@ function main() {
     <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
 <dd>
 
-
+on scrolling
 
 </dd>
 <a id="offScroll"></a>
 <dt><pre><span class="Keyword">proc</span> <a href="#offScroll"><span class="Identifier">offScroll</span></a><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
 <dd>
 
-
+off scrolling
 
 </dd>
 <a id="upScrool,Natural"></a>
@@ -482,7 +684,7 @@ function main() {
                                <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
 <dd>
 
-
+scrolling up
 
 </dd>
 <a id="downScrool,Natural"></a>
@@ -490,14 +692,109 @@ function main() {
                                  <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
 <dd>
 
-
+scrolling down 
 
 </dd>
 <a id="clsTerm"></a>
 <dt><pre><span class="Keyword">proc</span> <a href="#clsTerm"><span class="Identifier">clsTerm</span></a><span class="Other">(</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
 <dd>
 
+Erases the entire terminal attribut and word
 
+</dd>
+<a id="resetAttributes"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#resetAttributes"><span class="Identifier">resetAttributes</span></a><span class="Other">(</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IOError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+Resets all attributes.
+
+</dd>
+<a id="eraseLineEnd"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#eraseLineEnd"><span class="Identifier">eraseLineEnd</span></a><span class="Other">(</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+Erases from the current cursor position to the end of the current line.
+
+</dd>
+<a id="eraseLineStart"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#eraseLineStart"><span class="Identifier">eraseLineStart</span></a><span class="Other">(</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+Erases from the current cursor position to the start of the current line.
+
+</dd>
+<a id="eraseDown"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#eraseDown"><span class="Identifier">eraseDown</span></a><span class="Other">(</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+Erases the screen from the current line down to the bottom of the screen.
+
+</dd>
+<a id="eraseUp"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#eraseUp"><span class="Identifier">eraseUp</span></a><span class="Other">(</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+Erases the screen from the current line up to the top of the screen.
+
+</dd>
+<a id="eraseLine"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#eraseLine"><span class="Identifier">eraseLine</span></a><span class="Other">(</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+Erases the entire current line.
+
+</dd>
+<a id="eraseTerm"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#eraseTerm"><span class="Identifier">eraseTerm</span></a><span class="Other">(</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IOError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+Erases the entire word.
+
+</dd>
+<a id="setStyle,set[Style]"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#setStyle%2Cset%5BStyle%5D"><span class="Identifier">setStyle</span></a><span class="Other">(</span><span class="Identifier">style</span><span class="Other">:</span> <span class="Identifier">set</span><span class="Other">[</span><a href="termkey.html#Style"><span class="Identifier">Style</span></a><span class="Other">]</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span>
+                                   <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+Sets the terminal style.
+
+</dd>
+<a id="writeStyled,string,set[Style]"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#writeStyled%2Cstring%2Cset%5BStyle%5D"><span class="Identifier">writeStyled</span></a><span class="Other">(</span><span class="Identifier">txt</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">style</span><span class="Other">:</span> <span class="Identifier">set</span><span class="Other">[</span><a href="termkey.html#Style"><span class="Identifier">Style</span></a><span class="Other">]</span> <span class="Other">=</span> <span class="Other">{</span><span class="Identifier">styleBright</span><span class="Other">}</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma">
+    <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+Writes the text <tt class="docutils literal"><span class="pre">txt</span></tt> in a given <tt class="docutils literal"><span class="pre">style</span></tt> to stdout.
+
+</dd>
+<a id="setForegroundColor,ForegroundColor"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#setForegroundColor%2CForegroundColor"><span class="Identifier">setForegroundColor</span></a><span class="Other">(</span><span class="Identifier">fg</span><span class="Other">:</span> <a href="termkey.html#ForegroundColor"><span class="Identifier">ForegroundColor</span></a><span class="Other">;</span> <span class="Identifier">bright</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma">
+    <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+Sets the terminal's foreground color.
+
+</dd>
+<a id="setBackgroundColor,BackgroundColor"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#setBackgroundColor%2CBackgroundColor"><span class="Identifier">setBackgroundColor</span></a><span class="Other">(</span><span class="Identifier">bg</span><span class="Other">:</span> <a href="termkey.html#BackgroundColor"><span class="Identifier">BackgroundColor</span></a><span class="Other">;</span> <span class="Identifier">bright</span> <span class="Other">=</span> <span class="Identifier">false</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma">
+    <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+Sets the terminal's background color.
+
+</dd>
+<a id="terminalWidth"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#terminalWidth"><span class="Identifier">terminalWidth</span></a><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+Returns terminal width from first fd the ioctl.
+
+</dd>
+<a id="terminalHeight"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#terminalHeight"><span class="Identifier">terminalHeight</span></a><span class="Other">(</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+Returns terminal height from first fd the ioctl.
 
 </dd>
 
@@ -510,7 +807,7 @@ function main() {
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2020-11-07 13:43:25 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2020-11-11 12:58:03 UTC</small>
       </div>
     </div>
   </div>

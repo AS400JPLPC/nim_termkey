@@ -21,6 +21,8 @@ doc : [TERMKEY](http://htmlpreview.github.io/?https://github.com/AS400JPLPC/nim_
 
 **nim pure**
 
+**Affranhissement nim->Terminal
+
 management Mouse
 
 management full keyboard
@@ -112,7 +114,12 @@ i did this to work with nim to understand some subtlety<BR />
 
 &rarr;&nbsp; 2020-11-05   correctif add : clsTerm clear Terminal <BR />  
 
-&rarr;&nbsp; 2020-11-05   correctif change: initScreen (add clear terminal) <BR />
+&rarr;&nbsp; 2020-11-05   correctif change: initScreen (add clear terminal) <BR />  
+  
+
+&rarr;&nbsp; 2020-11-10   enfranchisement Nim:Terminal code cleanup operational with libvte or ex xfce-terminal<BR />  
+  
+
 
 .<BR />
 
@@ -121,27 +128,59 @@ i did this to work with nim to understand some subtlety<BR />
 .<BR />
 
 ***Proc***.<BR />
-proc titleScreen(title: string) {...}
 
-proc resizeScreen(line, cols: Natural) {...}
 
-proc initScreen(line, cols: Natural; title: string = "") {...}
+proc defCursor(e_curs: typCursor = cnoBlink) {...}
 
-proc initScreen() {...}
+    define type Cursor form terminal 
 
-proc closeScren() {...}
+proc getCursor(line: var Natural; cols: var Natural) {...}
+
+    get Cursor form terminal 
+
+proc getTKey(): (TKey, Ckey.Chr) {...}
+
+    get the keyboard keys from the terminal 
+
+proc getFunc(curs: bool = false): (TKey) {...}
+
+    get the keyboard keys from the terminal 
+
+proc titleTerm(title: string) {...}
+
+proc resizeTerm(line, cols: Natural) {...}
+
+proc initTerm(line, cols: Natural; title: string = "") {...}
+
+proc iniTerm() {...}
+
+proc closeTerm() {...}
 
 proc offCursor() {...}
 
 proc onCursor() {...}
 
-proc getCursor(line: var Natural; cols: var Natural) {...}
-
-proc getTKey(): (TKey, Ckey.Chr) {...}
-
-proc getFunc(curs: bool = false): (TKey) {...}
-
 proc gotoXY(line: Natural; cols: Natural) {...}
+
+proc gotoXPos(cols: int) {...}
+
+    Sets the terminal's cursor to the x position. The y position is not changed. 
+
+proc cursorUp(count = 1) {...}
+
+    Moves the cursor up by count rows. 
+
+proc cursorDown(count = 1) {...}
+
+    Moves the cursor down by count rows. 
+
+proc cursorForward(count = 1) {...}
+
+    Moves the cursor forward by count columns. 
+
+proc cursorBackward(count = 1) {...}
+
+    Moves the cursor backward by count columns. 
 
 proc onMouse() {...}
 
@@ -151,14 +190,77 @@ proc getMouse(): MouseInfo {...}
 
 proc onScroll(line, linePage: Natural): bool {...}
 
+    on scrolling 
+
 proc offScroll(): bool {...}
+
+    off scrolling 
 
 proc upScrool(line: Natural) {...}
 
+    scrolling up 
+
 proc downScrool(line: Natural) {...}
 
+    scrolling down 
+
 proc clsTerm() {...}
+
+    Erases the entire terminal attribut and word 
+
+proc resetAttributes() {...}
+
+    Resets all attributes. 
+
+proc eraseLineEnd() {...}
+
+    Erases from the current cursor position to the end of the current line. 
+
+proc eraseLineStart() {...}
+
+    Erases from the current cursor position to the start of the current line. 
+
+proc eraseDown() {...}
+
+    Erases the screen from the current line down to the bottom of the screen. 
+
+proc eraseUp() {...}
+
+    Erases the screen from the current line up to the top of the screen. 
+
+proc eraseLine() {...}
+
+    Erases the entire current line. 
+
+proc eraseTerm() {...}
+
+    Erases the entire word. 
+
+proc setStyle(style: set[Style]) {...}
+
+    Sets the terminal style. 
+
+proc writeStyled(txt: string; style: set[Style] = {styleBright}) {...}
+
+    Writes the text txt in a given style to stdout. 
+
+proc setForegroundColor(fg: ForegroundColor; bright = false) {...}
+
+    Sets the terminal's foreground color. 
+
+proc setBackgroundColor(bg: BackgroundColor; bright = false) {...}
+
+    Sets the terminal's background color. 
+
+proc terminalWidth(): int {...}
+
+    Returns terminal width from first fd the ioctl. 
+
+proc terminalHeight(): int {...}
+
+    Returns terminal height from first fd the ioctl. 
+
 <BR />
 <BR />
 
-**Made with Nim. Generated: 2020-11-07 13:43:25 UTC**
+**Made with Nim. Generated: 2020-11-11 12:58:03 UTC**

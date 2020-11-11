@@ -7,8 +7,8 @@
 #======================================================
 
 
-import  posix, termios , termios , bitops
-import  tables, terminal
+import  posix, termios , bitops 
+import  tables
 import  strformat, strutils
 
 type
@@ -182,7 +182,7 @@ let
 
 
 type
-  Car* {.pure.} = enum      
+  TCar* {.pure.} = enum      
     # Special ASCII characters
     # code decimal unicode  except Cool 
 
@@ -263,8 +263,6 @@ type
 # very problème buffer expand occurs tihs value 800 is correct 99%
 const KeySequenceMaxLen = 800
 
-
-
 #======================================================
 # Thank you johnnovak for Mouse
 # Event Mouse 
@@ -295,38 +293,111 @@ type
   ScrollDirection* {.pure.} = enum
     sdNone, sdUp, sdDown
 
+type
+  typCursor* {.pure.} = enum
+    cnoBlink,
+    cBlink,
+    cSteady,
+    cBlinkUnderline,
+    cSteadyUnderline,
+    cBlinkBar,
+    cSteadyBar
+
 var gMouseInfo = MouseInfo()
 
 
-proc getPos(inp: seq[int]): int =
-  var str = ""
-  for ch in inp:
-    str &= $(ch.chr)
-  result = parseInt(str)
+type
+  winsize {.bycopy.} = object
+    ws_row : cushort          ##  rows, in characters
+    ws_col: cushort           ##  columns, in characters
+    ws_xpixel: cushort        ##  horizontal size, pixels
+    ws_ypixel: cushort        ##  vertical size, pixels
 
-proc splitInputs(inp: openarray[int], max: Natural): seq[seq[int]] =
-  ## splits the input buffer to extract mouse coordinates
-  var parts: seq[seq[int]] = @[]
-  var cur: seq[int] = @[]
-  for ch in inp[CSI.len+1 .. max-1]:
-    if ch == ord('M'):
-      # Button press
-      parts.add(cur)
-      gMouseInfo.action = mbaPressed
-      break
-    elif ch == ord('m'):
-      # Button release
-      parts.add(cur)
-      gMouseInfo.action = mbaReleased
-      break
-    elif ch != ord(';'):
-      cur.add(ch)
-    else:
-      parts.add(cur)
-      cur = @[]
-  return parts
+
+
+#---------------------------------------
+# attribut -> setStyle
+# echo  ----> writeStyled
+# color ----> setForegroundColor / setForegroundColor
+#---------------------------------------
+type
+  Style* = enum        ## different styles for text output
+    styleBright = 1,   ## bright text
+    styleDim,          ## dim text
+    styleItalic,       ## italic (or reverse on terminals not supporting)
+    styleUnderscore,   ## underscored text
+    styleBlink,        ## blinking/bold text
+    styleBlinkRapid,   ## rapid blinking/bold text (not widely supported)
+    styleReverse,      ## reverse
+    styleHidden,       ## hidden text
+    styleStrikethrough ## strikethrough
+type
+  ForegroundColor* = enum ## terminal's foreground colors
+    fgBlack = 30,         ## black
+    fgRed,                ## red
+    fgGreen,              ## green
+    fgYellow,             ## yellow
+    fgBlue,               ## blue
+    fgMagenta,            ## magenta
+    fgCyan,               ## cyan
+    fgWhite,              ## white
+    fg8Bit,               ## 256-color (not supported, see ``enableTrueColors`` instead.)
+    fgDefault             ## default terminal foreground color
+
+  BackgroundColor* = enum ## terminal's background colors
+    bgBlack = 40,         ## black
+    bgRed,                ## red
+    bgGreen,              ## green
+    bgYellow,             ## yellow
+    bgBlue,               ## blue
+    bgMagenta,            ## magenta
+    bgCyan,               ## cyan
+    bgWhite,              ## white
+    bg8Bit,               ## 256-color (not supported, see ``enableTrueColors`` instead.)
+    bgDefault             ## default terminal background color  
+var
+  gFG {.threadvar.}: int
+  gBG {.threadvar.}: int
+const
+  resetCode = fmt"{CSI}0m"
+
+
+
+
+
+
+
+
 
 proc eventMouseInfo(keyBuf: array[KeySequenceMaxLen, int]) =
+
+  func getPos(inp: seq[int]): int =
+    var str = ""
+    for ch in inp:
+      str &= $(ch.chr)
+    result = parseInt(str)
+  proc splitInputs(inp: openarray[int], max: Natural): seq[seq[int]] =
+    ## splits the input buffer to extract mouse coordinates
+    var parts: seq[seq[int]] = @[]
+    var cur: seq[int] = @[]
+    for ch in inp[CSI.len+1 .. max-1]:
+      if ch == ord('M'):
+        # Button press
+        parts.add(cur)
+        gMouseInfo.action = mbaPressed
+        break
+      elif ch == ord('m'):
+        # Button release
+        parts.add(cur)
+        gMouseInfo.action = mbaReleased
+        break
+      elif ch != ord(';'):
+        cur.add(ch)
+      else:
+        parts.add(cur)
+        cur = @[]
+    return parts
+
   let parts = splitInputs(keyBuf, keyBuf.len)
   gMouseInfo.y = parts[1].getPos()
   gMouseInfo.x = parts[2].getPos() 
@@ -363,18 +434,20 @@ proc eventMouseInfo(keyBuf: array[KeySequenceMaxLen, int]) =
 #======================================================
 
 ## Modification of the terminal for keyboard reading without stdout.write
-## duplicate fd is use Posix default fd = 0
+## duplicate fd is use Posix default fd = 0 
+## there is an ambiguity when using 'posix' orders which work from the base with FD = 0 hence the dup2 function
 
-
-var fd :cint  = getFileHandle(stdin)
 var oldMode: Termios
-var Screen :bool = false
-var fdTerm :cint = fd + 1
+var Term :bool = false
+var fdTerm :cint 
 
-proc openRAW(fd: FileHandle, time: cint = TCSAFLUSH) =
-  if Screen == true : return
+proc openRAW(time: cint = TCSAFLUSH) =
+  ## Opening only one terminal
+  if Term == true : return
   var mode: Termios
+  var fd :cint  = getFileHandle(stdin)
   discard fd.tcGetAttr(addr oldMode)
+  fdTerm  = fd + 1
 
   discard dup2(fd,fdTerm)
 
@@ -385,58 +458,48 @@ proc openRAW(fd: FileHandle, time: cint = TCSAFLUSH) =
   mode.c_lflag = mode.c_lflag and not Cflag(ECHO or ICANON or IEXTEN or ISIG)
   mode.c_cc[VMIN] = 0.cuchar
   mode.c_cc[VTIME] = 0.cuchar
-  discard fd.tcSetAttr(time, addr mode)
   discard fdTerm.tcSetAttr(time, addr mode)
 
 
 
-proc titleScreen*( title :string)=
-  if title != "" :
-    const CSIstart = 0x1b.chr & "]" & "0" & ";"
-    const CSIend   = 0x07.chr
-    stdout.write(fmt"{CSIstart}{title}{CSIend}")
+proc defCursor*(e_curs: typCursor = cnoBlink) =
+  ## define type  Cursor form terminal
+  const CSIcurs = 0x1b.chr & "[?25h"
+  const CSIcurs0 = 0x1b.chr & "[0 q" #  0 → not blinking block
+  case e_curs
+  of cnoBlink:
+    stdout.write(CSIcurs0)
+    stdout.write(CSIcurs)
+  of cBlink:
+    const CSIcurs1 = 0x1b.chr & "[1 q" #  1 → blinking block
+    stdout.write(CSIcurs1)
+    stdout.write(CSIcurs)
+  of cSteady:
+    const CSIcurs2 = 0x1b.chr & "[2 q" #  2 → steady block
+    stdout.write(CSIcurs2)
+    stdout.write(CSIcurs)
+  of cBlinkUnderline:
+    const CSIcurs3 = 0x1b.chr & "[3 q" #  3 → blinking underlines
+    stdout.write(CSIcurs3)
+    stdout.write(CSIcurs)
+  of cSteadyUnderline:
+    const CSIcurs4 = 0x1b.chr & "[4 q" #  4 → steady underlines
+    stdout.write(CSIcurs4)
+    stdout.write(CSIcurs)
+  of cBlinkBar:
+    const CSIcurs5 = 0x1b.chr & "[5 q" #  5 → blinking bar
+    stdout.write(CSIcurs5)
+    stdout.write(CSIcurs)
+  of cSteadyBar:
+    const CSIcurs6 = 0x1b.chr & "[6 q" #  6 → steady bar
+    stdout.write(CSIcurs6)
+    stdout.write(CSIcurs)
+  stdout.flushFile()
 
-
-# if use resize  ok : vte application terminal ex TermVte or
-# change
-# sudo thunar /etc/X11/app-defaults/XTerm  
-# *allowWindowOps: true
-# *eightBitInput: false
-
-proc resizeScreen*(line ,cols : Natural;) =
-    if line > int(0) and cols > int(0) :
-      stdout.write(fmt"{CSI}8;{line};{cols};t")
-
-proc initScreen*(line ,cols : Natural; title : string ="") =
-  if Screen == false :
-    fd.openRAW()
-    resizeScreen(line,cols)
-    titleScreen(title)
-    stdout.write(fmt"{CSI}1;1H{CSI}2J")
-    stdout.flushFile
-    Screen = true
-
-
-proc initScreen*() =
-  if Screen == false :
-    fd.openRAW()
-    stdout.write(fmt"{CSI}1;1H{CSI}2J")
-    stdout.flushFile
-    Screen = true
-
-# restor terminal 
-proc closeScren*() =
-  discard fd.tcSetAttr(TCSADRAIN, addr oldMode)
-  quit(0)
-
-
-
-proc offCursor*() = hideCursor()
-
-proc onCursor*() = showCursor()
 
 
 proc getCursor*(line : var Natural ;cols : var Natural ) =
+  ## get Cursor form terminal
   var cursBuf: array[13,char]
   var i = 0
   line = 0
@@ -512,6 +575,7 @@ type
 
 
 proc parseKey(charsRead: int): (TKey , Ckey.Chr) =
+  ## keyboard buffer decryption from the terminal
   var inputSeq = ""
   var codekey = TKey.Char
 
@@ -560,14 +624,14 @@ proc parseKey(charsRead: int): (TKey , Ckey.Chr) =
   if codekey == TKey.None : codekey = TKey.Char
   return (codekey,inputSeq)
 
-proc gotoXY*(line: Natural ; cols : Natural)
 
 #======================================================
 # Keyboard Linux 
 #======================================================
 
-## get the keyboard keys from the terminal
 proc getTKey*() : (TKey , Ckey.Chr) =
+  ## get the keyboard keys from the terminal
+  
   var codekey = TKey.None
   var chr : string
   
@@ -579,7 +643,7 @@ proc getTKey*() : (TKey , Ckey.Chr) =
 
     ## Read a mutlicaractère character from the terminal, noblocking until it is entered.
     ## read keyboard or Mouse
-    stdin.flushFile
+    stdin.flushFile()
     while true  :
       var ncar = read(fdTerm, keyBuf[i].addr, 1)
       if ncar == 0 and i > 0 : break
@@ -588,12 +652,13 @@ proc getTKey*() : (TKey , Ckey.Chr) =
     (codekey, chr) = parseKey(i)
     if codekey != TKey.None : return (codekey, chr)
 
-## get the keyboard keys from the terminal
+
 proc getFunc*(curs : bool = false) : (TKey) =
+  ## get the keyboard keys from the terminal
   var codekey = TKey.None
   var chr : string
   while true :
-    stdin.flushFile
+    stdin.flushFile()
     ## clean buffer
     var i = 0
     for u in 0..<KeySequenceMaxLen:
@@ -602,7 +667,10 @@ proc getFunc*(curs : bool = false) : (TKey) =
     ## Read a mutlicaractère character from the terminal, noblocking until it is entered.
     ## read keyboard or Mouse
     while true  :
-      if curs == false : hideCursor()
+      if curs == false :
+        #off cursor
+        stdout.write("\e[?25l")
+        stdout.flushFile()
       var ncar = read(fdTerm, keyBuf[i].addr, 1)
       if ncar == 0 and i > 0 : break
       if ncar > 0 : i += 1
@@ -611,18 +679,100 @@ proc getFunc*(curs : bool = false) : (TKey) =
     if codekey != TKey.None and codekey != TKey.Char  : return (codekey)
 
 
+
+proc titleTerm*( title :string)=
+  if title != "" :
+    const CSIstart = 0x1b.chr & "]" & "0" & ";"
+    const CSIend   = 0x07.chr
+    stdout.write(fmt"{CSIstart}{title}{CSIend}")
+    stdout.flushFile()
+
+
+# if use resize  ok : vte application terminal ex TermVte or
+# change
+# sudo thunar /etc/X11/app-defaults/XTerm  
+# *allowWindowOps: true
+# *eightBitInput: false
+
+proc resizeTerm*(line ,cols : Natural;) =
+    if line > int(0) and cols > int(0) :
+      stdout.write(fmt"{CSI}8;{line};{cols};t")
+      stdout.flushFile()
+
+proc initTerm*(line ,cols : Natural; title : string ="") =
+  if Term == false :
+    openRAW()
+    resizeTerm(line,cols)
+    titleTerm(title)
+    # cls reset all terminal
+    stdout.write(fmt"{CSI}1;1H{CSI}2J")
+    stdout.flushFile()
+    #off cursor
+    stdout.write("\e[?25l")
+    stdout.flushFile()
+    Term = true
+
+
+proc iniTerm*() =
+  if Term == false :
+    openRAW()
+    # cls reset all terminal
+    stdout.write(fmt"{CSI}1;1H{CSI}2J")
+    stdout.flushFile()
+    #off cursor
+    stdout.write("\e[?25l")
+    stdout.flushFile()
+    Term = true
+
+
+# restor terminal system
+proc closeTerm*() =
+  discard fdTerm.tcSetAttr(TCSADRAIN, addr oldMode)
+  quit(0)
+
+
+proc offCursor*() = 
+  stdout.write("\e[?25l")
+  stdout.flushFile()
+
+proc onCursor*() = 
+  stdout.write("\e[?25h")
+  stdout.flushFile()
+
 proc gotoXY*(line: Natural ; cols : Natural) =
   stdout.write(fmt"{CSI}{line};{cols}H")
-  stdout.flushFile
+  stdout.flushFile()
+
+proc gotoXPos*(cols: int) =
+  ## Sets the terminal's cursor to the x position.
+  ## The y position is not changed.
+  stdout.write(fmt"{CSI}{cols}G")
+  stdout.flushFile()
+
+proc cursorUp*(count = 1) =
+  ## Moves the cursor up by `count` rows.
+  stdout.write(fmt"{CSI}{count}A")
+
+proc cursorDown*(count = 1) =
+  ## Moves the cursor down by `count` rows.
+  stdout.write(fmt"{CSI}{count}B")
+
+proc cursorForward*(count = 1) =
+  ## Moves the cursor forward by `count` columns.
+  stdout.write(fmt"{CSI}{count}C")
+
+proc cursorBackward*(count = 1) =
+  ## Moves the cursor backward by `count` columns.
+  stdout.write(fmt"{CSI}{count}D")
 
 proc onMouse*() =
   stdout.write(EnableMouse)
-  stdout.flushFile
+  stdout.flushFile()
 
 
 proc offMouse*() =
   stdout.write(DisableMouse)
-  stdout.flushFile
+  stdout.flushFile()
 
 
 proc getMouse*(): MouseInfo =
@@ -630,31 +780,123 @@ proc getMouse*(): MouseInfo =
 
 
 proc onScroll*(line , linePage: Natural) : bool =
-
+  ## on scrolling
   if line == 0 or linePage == 0 : return false
   
   var page : Natural  =  line + linePage - 1
   stdout.write(fmt"{CSI}{line};{page}r")
-  stdout.flushFile
+  stdout.flushFile()
   return true
 
 
 
 proc offScroll*():bool =
+  ## off scrolling
   stdout.write(fmt"{CSI}r")
-  stdout.flushFile
+  stdout.flushFile()
   return false
 
 proc upScrool*(line : Natural) =
+  ## scrolling up
   stdout.write(fmt"{CSI}{line}S")
-  stdout.flushFile
+  stdout.flushFile()
 
 proc downScrool*(line : Natural) =
+  ## scrolling down 
   stdout.write(fmt"{CSI}{line}T")
-  stdout.flushFile
+  stdout.flushFile()
   
 proc clsTerm*() =
+  ## Erases the entire terminal attribut and word
   offCursor()
   stdout.write(fmt"{CSI}1;1H{CSI}2J")
-  stdout.flushFile
-  onCursor()   
+  stdout.flushFile()
+  onCursor()
+
+
+
+proc resetAttributes*() =
+  ## Resets all attributes.
+  stdout.write(resetCode)
+  gFG = 0
+  gBG = 0
+
+
+proc eraseLineEnd*() =
+  ## Erases from the current cursor position to the end of the current line.
+  stdout.write(fmt"{CSI}K")
+  stdout.flushFile()
+
+proc eraseLineStart*() =
+  ## Erases from the current cursor position to the start of the current line.
+  stdout.write(fmt"{CSI}1K")
+
+proc eraseDown*() =
+  ## Erases the screen from the current line down to the bottom of the screen.
+  stdout.write(fmt"{CSI}J")
+
+proc eraseUp*() =
+  ## Erases the screen from the current line up to the top of the screen.
+  stdout.write(fmt"{CSI}1J")
+
+proc eraseLine*() =
+  ## Erases the entire current line.
+  resetAttributes()
+  stdout.write(fmt"{CSI}2K")
+  gotoXPos(0)
+
+proc eraseTerm*() =
+  ## Erases the entire word.
+  stdout.write("\e[2J")
+
+proc codeStyleTerm(style: int): string =
+  result = fmt"{CSI}{style}m"
+
+template codeStyleTerm(style: Style): string =
+  codeStyleTerm(style.int)
+
+# The styleCache can be skipped when `style` is known at compile-time
+template codeStyleTerm(style: static[Style]): string =
+  (static(CSI & $style.int & "m"))
+
+proc setStyle*(style: set[Style]) =
+  ## Sets the terminal style.
+  for s in items(style):
+    stdout.write(codeStyleTerm(s))
+    stdout.flushFile()
+
+
+proc writeStyled*(txt: string, style: set[Style] = {styleBright}) =
+  ## Writes the text `txt` in a given `style` to stdout.
+  setStyle(style)
+  stdout.write(txt)
+  resetAttributes()
+  stdout.flushFile()  
+
+proc setForegroundColor*(fg: ForegroundColor, bright = false) =
+  ## Sets the terminal's foreground color.
+  gFG = ord(fg)
+  if bright: inc(gFG, 60)
+  stdout.write(codeStyleTerm(gFG))
+  stdout.flushFile()
+
+proc setBackgroundColor*(bg: BackgroundColor, bright = false) =
+  ## Sets the terminal's background color.
+  gBG = ord(bg)
+  if bright: inc(gBG, 60)
+  stdout.write(codeStyleTerm(gBG))
+  stdout.flushFile()
+
+
+proc terminalWidth*(): int =
+  ## Returns terminal width from first fd the ioctl.
+  var win: winsize
+  discard ioctl(cint(fdTerm), TIOCGWINSZ, addr win)
+  return int(win.ws_col)
+
+proc terminalHeight*(): int =
+  ## Returns terminal height from first fd the ioctl.
+  var win: winsize
+  discard ioctl(cint(fdTerm), TIOCGWINSZ, addr win)
+  return int(win.ws_row)
+
