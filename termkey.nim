@@ -434,22 +434,23 @@ proc eventMouseInfo(keyBuf: array[KeySequenceMaxLen, int]) =
 #======================================================
 
 ## Modification of the terminal for keyboard reading without stdout.write
-## duplicate fd is use Posix default fd = 0 
-## there is an ambiguity when using 'posix' orders which work from the base with FD = 0 hence the dup2 function
+## duplicate fd is use Posix default FD = 0->(STDIN)  the dup function gives the first free
+
 
 var oldMode: Termios
 var Term :bool = false
-var fdTerm :cint 
-
+var fdTerm :cint
+var fdhold :cint
 proc openRAW(time: cint = TCSAFLUSH) =
   ## Opening only one terminal
   if Term == true : return
+  
   var mode: Termios
-  var fd :cint  = getFileHandle(stdin)
-  discard fd.tcGetAttr(addr oldMode)
-  fdTerm  = fd + 1
-
-  discard dup2(fd,fdTerm)
+  fdhold = getFileHandle(stdin)
+  discard fdhold.tcGetAttr(addr oldMode)
+  
+  fdTerm = dup(fdhold)
+  # Normally we should test if no assignment error fdTerm = -1
 
   discard fdTerm.tcGetAttr(addr mode)
   mode.c_iflag = mode.c_iflag and not Cflag(BRKINT or ICRNL or INPCK or  ISTRIP or IXON)
@@ -658,7 +659,6 @@ proc getFunc*(curs : bool = false) : (TKey) =
   var codekey = TKey.None
   var chr : string
   while true :
-    stdin.flushFile()
     ## clean buffer
     var i = 0
     for u in 0..<KeySequenceMaxLen:
@@ -666,11 +666,13 @@ proc getFunc*(curs : bool = false) : (TKey) =
 
     ## Read a mutlicaractère character from the terminal, noblocking until it is entered.
     ## read keyboard or Mouse
+    if curs == false :
+      #off cursor
+      stdout.write("\e[?25l")
+      stdout.flushFile()
+
+    stdin.flushFile()
     while true  :
-      if curs == false :
-        #off cursor
-        stdout.write("\e[?25l")
-        stdout.flushFile()
       var ncar = read(fdTerm, keyBuf[i].addr, 1)
       if ncar == 0 and i > 0 : break
       if ncar > 0 : i += 1
@@ -727,7 +729,7 @@ proc iniTerm*() =
 
 # restor terminal system
 proc closeTerm*() =
-  discard fdTerm.tcSetAttr(TCSADRAIN, addr oldMode)
+  discard fdhold.tcSetAttr(TCSADRAIN, addr oldMode)
   quit(0)
 
 
@@ -743,7 +745,7 @@ proc gotoXY*(line: Natural ; cols : Natural) =
   stdout.write(fmt"{CSI}{line};{cols}H")
   stdout.flushFile()
 
-proc gotoXPos*(cols: int) =
+proc gotoXPos*(cols: Natural) =
   ## Sets the terminal's cursor to the x position.
   ## The y position is not changed.
   stdout.write(fmt"{CSI}{cols}G")

@@ -15,7 +15,7 @@ doc : [TERMKEY](http://htmlpreview.github.io/?https://github.com/AS400JPLPC/nim_
 &rarr;&nbsp;mouse management is subject to Xterm Ncurses compliance<br />
 &rarr;&nbsp;Your table of unusual characters conforms to the standard of the possibilities of an extended keyboard<br />
 &rarr;&nbsp;I decided not to introduce management on Windows and prefer to have 2 separate libraries, there are too many differences.<br />
-
+&rarr;&nbsp;Attribute management and display.<br />
 
 **Linux**
 
@@ -25,7 +25,7 @@ doc : [TERMKEY](http://htmlpreview.github.io/?https://github.com/AS400JPLPC/nim_
 
 management Mouse
 
-management full keyboard
+management full keyboard   get/out
 
 <u>Keyboard management and respect for the terminal philosophy</u><br />
 
@@ -37,8 +37,9 @@ the character keys are UTF8
 sudo mousepad /etc/X11/app-defaults/XTerm <BR />
 * allowWindowOps: true <BR />
 * eightBitInput: false <BR /><BR />
+
 &rarr;&nbsp;Manjaro xfce4 not problème is terminal<BR /> 
-&rarr;&nbsp;If you use the VteTERM project you will have even more possibilities than xterm<BR />
+&rarr;&nbsp;If you use the VteTERM/ nim_Termvte  project you will have even more possibilities than xterm<BR />
 
 
 
@@ -115,9 +116,10 @@ i did this to work with nim to understand some subtlety<BR />
 &rarr;&nbsp; 2020-11-05   correctif add : clsTerm clear Terminal <BR />  
 
 &rarr;&nbsp; 2020-11-05   correctif change: initScreen (add clear terminal) <BR />  
-  
 
 &rarr;&nbsp; 2020-11-10   enfranchisement Nim:Terminal code cleanup operational with libvte or ex xfce-terminal<BR />  
+
+&rarr;&nbsp; 2020-11-10   duplicate fd is use Posix default FD = 0->(STDIN)  the dup function gives the first free<BR />  
   
 
 
