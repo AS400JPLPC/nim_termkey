@@ -119,7 +119,7 @@ i did this to work with nim to understand some subtlety<BR />
 
 &rarr;&nbsp; 2020-11-10   enfranchisement Nim:Terminal code cleanup operational with libvte or ex xfce-terminal<BR />  
 
-&rarr;&nbsp; 2020-11-10   duplicate fd is use Posix default FD = 0->(STDIN)  the dup function gives the first free<BR />  
+&rarr;&nbsp; 2020-12-10   duplicate fd is use Posix default FD = 0->(STDIN)  the dup function gives the first free<BR />  
   
 
 
