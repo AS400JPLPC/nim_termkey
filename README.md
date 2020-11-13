@@ -19,13 +19,11 @@ doc : [TERMKEY](http://htmlpreview.github.io/?https://github.com/AS400JPLPC/nim_
 
 **Linux**
 
-**nim pure**
-
 **Affranhissement nim->Terminal
 
 management Mouse
 
-management full keyboard   get/out
+management full keyboard   read buffer / output screen
 
 <u>Keyboard management and respect for the terminal philosophy</u><br />
 
