@@ -117,9 +117,9 @@ i did this to work with nim to understand some subtlety<BR />
 
 &rarr;&nbsp; 2020-11-10   enfranchisement Nim:Terminal code cleanup operational with libvte or ex xfce-terminal<BR />  
 
-&rarr;&nbsp; 2020-12-10   duplicate fd is use Posix default FD = 0->(STDIN)  the dup function gives the first free<BR />  
-  
+&rarr;&nbsp; 2020-11-10   duplicate fd is use Posix default FD = 0->(STDIN)  the dup function gives the first free<BR />  
 
+&rarr;&nbsp; 2020-11-15   purge code <BR />  
 
 .<BR />
 
@@ -128,7 +128,6 @@ i did this to work with nim to understand some subtlety<BR />
 .<BR />
 
 ***Proc***.<BR />
-
 
 proc defCursor(e_curs: typCursor = cnoBlink) {...}
 
@@ -162,7 +161,7 @@ proc onCursor() {...}
 
 proc gotoXY(line: Natural; cols: Natural) {...}
 
-proc gotoXPos(cols: int) {...}
+proc gotoXPos(cols: Natural) {...}
 
     Sets the terminal's cursor to the x position. The y position is not changed. 
 
@@ -263,4 +262,4 @@ proc terminalHeight(): int {...}
 <BR />
 <BR />
 
-**Made with Nim. Generated: 2020-11-11 12:58:03 UTC**
+**Made with Nim. Generated: 2020-11-15 21:56:36 UTC**

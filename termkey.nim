@@ -1,5 +1,5 @@
 #======================================================
-#	work get-keyboard and Mouse 
+#	work get-keyboard and Mouse display
 #		Linux
 #
 # Inspiration johnnovak/illwill and JPLAS400PC C++
@@ -9,7 +9,8 @@
 
 import  posix, termios , bitops 
 import  tables
-import  strformat, strutils
+from strformat import  fmt
+from strutils  import  parseInt
 
 type
   TKey* {.pure.} = enum
@@ -856,10 +857,6 @@ proc codeStyleTerm(style: int): string =
 
 template codeStyleTerm(style: Style): string =
   codeStyleTerm(style.int)
-
-# The styleCache can be skipped when `style` is known at compile-time
-template codeStyleTerm(style: static[Style]): string =
-  (static(CSI & $style.int & "m"))
 
 proc setStyle*(style: set[Style]) =
   ## Sets the terminal style.
