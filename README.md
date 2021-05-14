@@ -121,6 +121,9 @@ i did this to work with nim to understand some subtlety<BR />
 
 &rarr;&nbsp; 2020-11-15   purge code <BR />  
 
+&rarr;&nbsp; 2021-05-14   correction type TKey* {.pure.} = enum <BR />  
+
+
 .<BR />
 
 .<BR />

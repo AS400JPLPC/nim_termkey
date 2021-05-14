@@ -7,14 +7,15 @@
 #======================================================
 
 
-import  posix, termios , bitops 
+import  posix, termios , bitops
 import  tables
 from strformat import  fmt
 from strutils  import  parseInt
 
 type
   TKey* {.pure.} = enum
-      None   = "None", Char ="Char",
+      None   = "None",
+      Char   = "Char",
       CtrlA  = "CtrlA",
       CtrlB  = "CtrlB",
       CtrlC  = "CtrlC",
@@ -91,13 +92,13 @@ type
       altY  = "altY",
       altZ  = "altZ",
 
-      Mouse = "Mouse"
+      Mouse = "Mouse",
 
       ATTN = "ATTN",
       CALL = "CALL",
       PROC = "PROC"
 
-# attn appel serveur externe d'application 
+# attn appel serveur externe d'application
 # call appel application extern
 # proc appel fonction proc interne
 
@@ -183,9 +184,9 @@ let
 
 
 type
-  TCar* {.pure.} = enum      
+  TCar* {.pure.} = enum
     # Special ASCII characters
-    # code decimal unicode  except Cool 
+    # code decimal unicode  except Cool
 
     Cent          = "¢", # 162
     Currency      = "¤", # 164
@@ -214,7 +215,7 @@ type
     CPy           = "π", # 960
     CPhi          = "φ", # 966
     CPsy          = "ψ", # 968
-    
+
     CRho          = "ϱ", # 1009
 
     Bullet        = "•", # 8226
@@ -249,7 +250,7 @@ type
     Femele        = "♀", # 9792
     Male          = "♂", # 9794
 
-    
+
     Pique         = "♠", # 9824
     Trefle        = "♣", # 9827
     Coeur         = "♥", # 9829
@@ -266,7 +267,7 @@ const KeySequenceMaxLen = 800
 
 #======================================================
 # Thank you johnnovak for Mouse
-# Event Mouse 
+# Event Mouse
 # https://invisible-island.net/xterm/ctlseqs/ctlseqs.html#h3-Extended-coordinates
 #======================================================
 
@@ -342,7 +343,6 @@ type
     fgMagenta,            ## magenta
     fgCyan,               ## cyan
     fgWhite,              ## white
-    fg8Bit,               ## 256-color (not supported, see ``enableTrueColors`` instead.)
     fgDefault             ## default terminal foreground color
 
   BackgroundColor* = enum ## terminal's background colors
@@ -354,8 +354,8 @@ type
     bgMagenta,            ## magenta
     bgCyan,               ## cyan
     bgWhite,              ## white
-    bg8Bit,               ## 256-color (not supported, see ``enableTrueColors`` instead.)
-    bgDefault             ## default terminal background color  
+    bgDefault             ## default terminal background color
+
 var
   gFG {.threadvar.}: int
   gBG {.threadvar.}: int
@@ -401,7 +401,7 @@ proc eventMouseInfo(keyBuf: array[KeySequenceMaxLen, int]) =
 
   let parts = splitInputs(keyBuf, keyBuf.len)
   gMouseInfo.y = parts[1].getPos()
-  gMouseInfo.x = parts[2].getPos() 
+  gMouseInfo.x = parts[2].getPos()
   let bitset = parts[0].getPos()
   gMouseInfo.ctrl = bitset.testBit(4)
   gMouseInfo.shift = bitset.testBit(2)
@@ -445,11 +445,11 @@ var fdhold :cint
 proc openRAW(time: cint = TCSAFLUSH) =
   ## Opening only one terminal
   if Term == true : return
-  
+
   var mode: Termios
   fdhold = getFileHandle(stdin)
   discard fdhold.tcGetAttr(addr oldMode)
-  
+
   fdTerm = dup(fdhold)
   # Normally we should test if no assignment error fdTerm = -1
 
@@ -518,12 +518,12 @@ proc getCursor*(line : var Natural ;cols : var Natural ) =
   while true  :
     var ncar = read(0, cursBuf.addr, 13)
     if ncar == 0 and i > 0 : break
-    if ncar > 0 : 
+    if ncar > 0 :
       i += 1
 
 
   seq2 &= char(cursBuf[2])
- 
+
   if "?" == seq2 :
     i = 3
     while i < 14:
@@ -550,29 +550,29 @@ proc getCursor*(line : var Natural ;cols : var Natural ) =
 #======================================================
 
 # global keycode buffer
-var keyBuf: array[KeySequenceMaxLen,int]
+var keyBuf*: array[KeySequenceMaxLen,int]
 
 proc toKey(c: int): TKey =
-  if c > int(31) and c < int(127) : 
+  if c > int(31) and c < int(127) :
     return TKey.Char
 
-  elif c > int(127) and c < int(256) : 
+  elif c > int(127) and c < int(256) :
     return TKey.Char
-  
+
   for i in low(intListkey)..high(intListkey):
-    if c == intListKey[i] : 
+    if c == intListKey[i] :
       return TKey(i)
 
   result= TKey.None
 
 
-  
+
 #======================================================
- # Parse Keyboard ASCII 255 
+ # Parse Keyboard ASCII 255
 # include Mouse
 #======================================================
-type 
-  Ckey = object 
+type
+  Ckey = object
     Chr : string
 
 
@@ -588,10 +588,10 @@ proc parseKey(charsRead: int): (TKey , Ckey.Chr) =
     of  10: codekey = TKey.Enter
     of  27: codekey = TKey.Escape
     of 127: codekey = TKey.Backspace
-    of 0, 29, 30, 31: discard   
+    of 0, 29, 30, 31: discard
     else:
       codekey = toKey(ch)
-      if codekey == TKey.Char : 
+      if codekey == TKey.Char :
         inputSeq &= char(keyBuf[0])
     return (codekey,inputSeq)
 
@@ -613,7 +613,7 @@ proc parseKey(charsRead: int): (TKey , Ckey.Chr) =
 
   elif charsRead == 3 and keyBuf[0] == 27 and keyBuf[1] == 91 and keyBuf[2] == 90: # TODO what are these :)
       return (TKey.Stab,"")
-  
+
   for i in 0..<charsRead:
     inputSeq &= char(keyBuf[i])
 
@@ -627,16 +627,17 @@ proc parseKey(charsRead: int): (TKey , Ckey.Chr) =
   return (codekey,inputSeq)
 
 
+
 #======================================================
-# Keyboard Linux 
+# Keyboard Linux
 #======================================================
 
 proc getTKey*() : (TKey , Ckey.Chr) =
   ## get the keyboard keys from the terminal
-  
+
   var codekey = TKey.None
   var chr : string
-  
+
   while true :
     ## clean buffer
     var i = 0
@@ -650,6 +651,7 @@ proc getTKey*() : (TKey , Ckey.Chr) =
       var ncar = read(fdTerm, keyBuf[i].addr, 1)
       if ncar == 0 and i > 0 : break
       if ncar > 0 : i += 1
+
     ## decrypt Data
     (codekey, chr) = parseKey(i)
     if codekey != TKey.None : return (codekey, chr)
@@ -693,7 +695,7 @@ proc titleTerm*( title :string)=
 
 # if use resize  ok : vte application terminal ex TermVte or
 # change
-# sudo thunar /etc/X11/app-defaults/XTerm  
+# sudo thunar /etc/X11/app-defaults/XTerm
 # *allowWindowOps: true
 # *eightBitInput: false
 
@@ -716,7 +718,7 @@ proc initTerm*(line ,cols : Natural; title : string ="") =
     Term = true
 
 
-proc iniTerm*() =
+proc initTerm*() =
   if Term == false :
     openRAW()
     # cls reset all terminal
@@ -734,11 +736,11 @@ proc closeTerm*() =
   quit(0)
 
 
-proc offCursor*() = 
+proc offCursor*() =
   stdout.write("\e[?25l")
   stdout.flushFile()
 
-proc onCursor*() = 
+proc onCursor*() =
   stdout.write("\e[?25h")
   stdout.flushFile()
 
@@ -785,7 +787,7 @@ proc getMouse*(): MouseInfo =
 proc onScroll*(line , linePage: Natural) : bool =
   ## on scrolling
   if line == 0 or linePage == 0 : return false
-  
+
   var page : Natural  =  line + linePage - 1
   stdout.write(fmt"{CSI}{line};{page}r")
   stdout.flushFile()
@@ -805,10 +807,10 @@ proc upScrool*(line : Natural) =
   stdout.flushFile()
 
 proc downScrool*(line : Natural) =
-  ## scrolling down 
+  ## scrolling down
   stdout.write(fmt"{CSI}{line}T")
   stdout.flushFile()
-  
+
 proc clsTerm*() =
   ## Erases the entire terminal attribut and word
   offCursor()
@@ -870,7 +872,7 @@ proc writeStyled*(txt: string, style: set[Style] = {styleBright}) =
   setStyle(style)
   stdout.write(txt)
   resetAttributes()
-  stdout.flushFile()  
+  stdout.flushFile()
 
 proc setForegroundColor*(fg: ForegroundColor, bright = false) =
   ## Sets the terminal's foreground color.
