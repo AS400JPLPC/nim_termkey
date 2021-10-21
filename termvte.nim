@@ -4,13 +4,17 @@ import gintro/glib except getCurrentDir
 import gintro/[gtk , gobject, vte ]
 import strformat
 import os
+
+{.warning[CStringConv]: off.}
+
 #var cmd: array[2, cstring] = ["/bin/bash".cstring, cast[cstring](0)]
+
 var pid = 0
 var terminal* : Terminal
 var window* : Window
 
 # ALT_F4 ACTIVE
-let ALTF4 : bool  = true 
+let ALTF4 : bool  = true
 
 var ROW : Natural  # the desired number of columns
 var NROW : Natural # the desired number of lines
@@ -26,7 +30,7 @@ proc on_title_changed*(widget: vte.Terminal) =
   showAll(window)
 
 proc on_resize_window*(widget: vte.Terminal, row : int ; nrow :int) =
-  widget.setSize(row,nrow)   
+  widget.setSize(row,nrow)
   showAll(window)
 
 #-------------------------------------
@@ -54,29 +58,29 @@ proc key_press_ALTF4(win: Window;event :Event ): bool =
         app_exit(win)
         return false
       else :discard
-  
+
   return true
 
-# parametrage pour simuler XTERM 
+# parametrage pour simuler XTERM
 
 proc  init_Terminal() =
   var font_terminal : string                            #  resize  title  font
 
-  # size default 
+  # size default
   var scrn = getDefaultScreen()
   ROW  = 132
   NROW = 32
-  
-  # seach max size 
-  if getWidth(scrn) <= int32(1600) and getHeight(scrn)  >= int32(1024) :  
+
+  # seach max size
+  if getWidth(scrn) <= int32(1600) and getHeight(scrn)  >= int32(1024) :
     font_terminal = fmt"{VTEFONT} 13" #  généralement 13"... 15"
     ROW  = 132
     NROW = 32
-  if getWidth(scrn) <= int32(1920) and getHeight(scrn)  >= int32(1080) :  
+  if getWidth(scrn) <= int32(1920) and getHeight(scrn)  >= int32(1080) :
     font_terminal = fmt"{VTEFONT} 15" #  généralement 17"... 22"
     ROW  = 152
     NROW = 42
-  if getWidth(scrn) > int32(1920)  :  
+  if getWidth(scrn) > int32(1920)  :
     font_terminal = fmt"{VTEFONT} 15" #  ex: 2560 x1600 => 27"
     ROW  = 172
     NROW = 52
@@ -92,11 +96,11 @@ proc  init_Terminal() =
 
   terminal.setScrollbackLines(0)                        #  désactiver historique = 0.
 
-  terminal.setScrollOnOutput(false)                     #  défilement 
+  terminal.setScrollOnOutput(false)                     #  défilement
 
   terminal.setRewrapOnResize(false)                     #  Contrôle si le terminal remballera ou non son contenu,
                                                         #  y compris l'historique de défilement si resize
-                                                        # attention résultat imprévu > true test oblogatoire 
+                                                        # attention résultat imprévu > true test oblogatoire
 
   discard terminal.setEncoding("UTF-8")                 #  UTF8
 
@@ -118,7 +122,7 @@ proc newApp() =
   window.setDeletable(false)
 
 
-  # var env lanceur 
+  # var env lanceur
   let envPath = fmt"{getCurrentDir()}"
 
   let argument = commandLineParams()
@@ -133,8 +137,8 @@ proc newApp() =
   terminal = newTerminal()
   init_Terminal()
 
-  
- # recuperation du PID ex si altf4 kill du programme child 
+
+ # recuperation du PID ex si altf4 kill du programme child
   if not terminal.spawnSync(
     {},
     envPath,
