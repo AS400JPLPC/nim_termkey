@@ -29,14 +29,14 @@ management full keyboard   read buffer / output screen
 
 &rarr;&nbsp; UTF8
 the function keys being common to keyboards
-the character keys are UTF8  
+the character keys are UTF8
 
 &rarr;&nbsp;for Xterm   **UBUNTU** <BR />
 sudo mousepad /etc/X11/app-defaults/XTerm <BR />
 * allowWindowOps: true <BR />
 * eightBitInput: false <BR /><BR />
 
-&rarr;&nbsp;Manjaro xfce4 not problème is terminal<BR /> 
+&rarr;&nbsp;Manjaro xfce4 not problème is terminal<BR />
 &rarr;&nbsp;If you use the VteTERM/ nim_Termvte  project you will have even more possibilities than xterm<BR />
 
 
@@ -87,42 +87,9 @@ i did this to work with nim to understand some subtlety<BR />
 
 
 **Update**<BR />
-&rarr;&nbsp; 2020-04-16   add  proc (key) = getFunc()  read touche  omit key.Char<BR />
+&rarr;&nbsp; 2020-11-15   purge code <BR />
 
-&rarr;&nbsp; 2020-04-18   correctif line 572   if key == Key.None : key = Key.Char<BR />
-
-&rarr;&nbsp; 2020-04-20   correctif Key/Car change: enum<BR />
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * to respect enum:adding the table with a functional suite<BR />
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Car = Facilitates special character display<BR />
-
-&rarr;&nbsp; 2020-06-20   additif Key.ATTN&nbsp;Key.PROC&nbsp;Key.CALL&nbsp;&nbsp;&nbsp; Keyboard simulation done by the program and not by the keyboard<BR />
-
-&rarr;&nbsp; 2020-06-02   proc (key) = getFunc(curs : bool = false)&nbsp;&nbsp;&nbsp;improves function<BR />
-
-&rarr;&nbsp; 2020-06-24   correctif Mouse I solved the problem : scratching<BR />
-
-&rarr;&nbsp; 2020-06-26   Addition hide show cursor, only for harmonization and other module & mouse<BR />
-
-&rarr;&nbsp; 2020-08-26   correctif change: special character conformité and terminal and UTF8<BR />
-
-&rarr;&nbsp; 2020-11-01   correctif change: Key -> TKey getKey -> getTkey  ( nim posix use key)<BR />
-
-&rarr;&nbsp; 2020-11-01   correctif change: fdTerm = fd +1  ( if using posix  initializes fd 0)<BR />  
-
-&rarr;&nbsp; 2020-11-05   correctif add : clsTerm clear Terminal <BR />  
-
-&rarr;&nbsp; 2020-11-05   correctif change: initScreen (add clear terminal) <BR />  
-
-&rarr;&nbsp; 2020-11-10   enfranchisement Nim:Terminal code cleanup operational with libvte or ex xfce-terminal<BR />  
-
-&rarr;&nbsp; 2020-11-10   duplicate fd is use Posix default FD = 0->(STDIN)  the dup function gives the first free<BR />  
-
-&rarr;&nbsp; 2020-11-15   purge code <BR />  
-
-&rarr;&nbsp; 2021-05-14   correction type TKey* {.pure.} = enum <BR />  
-
+&rarr;&nbsp; 2022-03-29   STABLE  <BR />
 
 .<BR />
 
@@ -134,19 +101,19 @@ i did this to work with nim to understand some subtlety<BR />
 
 proc defCursor(e_curs: typCursor = cnoBlink) {...}
 
-    define type Cursor form terminal 
+    define type Cursor form terminal
 
 proc getCursor(line: var Natural; cols: var Natural) {...}
 
-    get Cursor form terminal 
+    get Cursor form terminal
 
 proc getTKey(): (TKey, Ckey.Chr) {...}
 
-    get the keyboard keys from the terminal 
+    get the keyboard keys from the terminal
 
 proc getFunc(curs: bool = false): (TKey) {...}
 
-    get the keyboard keys from the terminal 
+    get the keyboard keys from the terminal
 
 proc titleTerm(title: string) {...}
 
@@ -166,23 +133,23 @@ proc gotoXY(line: Natural; cols: Natural) {...}
 
 proc gotoXPos(cols: Natural) {...}
 
-    Sets the terminal's cursor to the x position. The y position is not changed. 
+    Sets the terminal's cursor to the x position. The y position is not changed.
 
 proc cursorUp(count = 1) {...}
 
-    Moves the cursor up by count rows. 
+    Moves the cursor up by count rows.
 
 proc cursorDown(count = 1) {...}
 
-    Moves the cursor down by count rows. 
+    Moves the cursor down by count rows.
 
 proc cursorForward(count = 1) {...}
 
-    Moves the cursor forward by count columns. 
+    Moves the cursor forward by count columns.
 
 proc cursorBackward(count = 1) {...}
 
-    Moves the cursor backward by count columns. 
+    Moves the cursor backward by count columns.
 
 proc onMouse() {...}
 
@@ -192,75 +159,75 @@ proc getMouse(): MouseInfo {...}
 
 proc onScroll(line, linePage: Natural): bool {...}
 
-    on scrolling 
+    on scrolling
 
 proc offScroll(): bool {...}
 
-    off scrolling 
+    off scrolling
 
 proc upScrool(line: Natural) {...}
 
-    scrolling up 
+    scrolling up
 
 proc downScrool(line: Natural) {...}
 
-    scrolling down 
+    scrolling down
 
 proc clsTerm() {...}
 
-    Erases the entire terminal attribut and word 
+    Erases the entire terminal attribut and word
 
 proc resetAttributes() {...}
 
-    Resets all attributes. 
+    Resets all attributes.
 
 proc eraseLineEnd() {...}
 
-    Erases from the current cursor position to the end of the current line. 
+    Erases from the current cursor position to the end of the current line.
 
 proc eraseLineStart() {...}
 
-    Erases from the current cursor position to the start of the current line. 
+    Erases from the current cursor position to the start of the current line.
 
 proc eraseDown() {...}
 
-    Erases the screen from the current line down to the bottom of the screen. 
+    Erases the screen from the current line down to the bottom of the screen.
 
 proc eraseUp() {...}
 
-    Erases the screen from the current line up to the top of the screen. 
+    Erases the screen from the current line up to the top of the screen.
 
 proc eraseLine() {...}
 
-    Erases the entire current line. 
+    Erases the entire current line.
 
 proc eraseTerm() {...}
 
-    Erases the entire word. 
+    Erases the entire word.
 
 proc setStyle(style: set[Style]) {...}
 
-    Sets the terminal style. 
+    Sets the terminal style.
 
 proc writeStyled(txt: string; style: set[Style] = {styleBright}) {...}
 
-    Writes the text txt in a given style to stdout. 
+    Writes the text txt in a given style to stdout.
 
 proc setForegroundColor(fg: ForegroundColor; bright = false) {...}
 
-    Sets the terminal's foreground color. 
+    Sets the terminal's foreground color.
 
 proc setBackgroundColor(bg: BackgroundColor; bright = false) {...}
 
-    Sets the terminal's background color. 
+    Sets the terminal's background color.
 
 proc terminalWidth(): int {...}
 
-    Returns terminal width from first fd the ioctl. 
+    Returns terminal width from first fd the ioctl.
 
 proc terminalHeight(): int {...}
 
-    Returns terminal height from first fd the ioctl. 
+    Returns terminal height from first fd the ioctl.
 
 <BR />
 <BR />
