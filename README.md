@@ -2,9 +2,7 @@
 
 **terminal keyboard and mouse resize ...**<br />
 
-
 doc : [TERMKEY](http://htmlpreview.github.io/?https://github.com/AS400JPLPC/nim_termkey/blob/master/htmldocs/termkey.html)<br />
-
 
 **A library to manage the keyboard on a terminal, the mouse, with a set of functions to initialize as we must do when we talk with the terminal example for applications of the curse type.**<br /><br />
 <br />
@@ -33,18 +31,18 @@ the character keys are UTF8
 
 &rarr;&nbsp;for Xterm   **UBUNTU** <BR />
 sudo mousepad /etc/X11/app-defaults/XTerm <BR />
+
 * allowWindowOps: true <BR />
 * eightBitInput: false <BR /><BR />
 
 &rarr;&nbsp;Manjaro xfce4 not problème is terminal<BR />
 &rarr;&nbsp;If you use the VteTERM/ nim_Termvte  project you will have even more possibilities than xterm<BR />
 
-
-
 &rarr;&nbsp;***function***:<BR />
 &ndash;&nbsp; crtlA..Z<BR />
 &ndash;&nbsp; altA..Z<BR />
 &ndash;&nbsp; F1..F24<BR />
+&ndash;&nbsp; CtrlUp CtrlDown CtrlRigth CtrlLeft CtrLHome CtrlEnd<BR />
 &ndash;&nbsp; tab ... inser&nbsp;delete&nbsp;home&nbsp;end&nbsp;page&nbsp;up&nbsp;down&nbsp;left&nbsp;rigth&nbsp;esc<BR />
 &ndash;&nbsp; other&nbsp;full&nbsp;char<BR />
 &rarr;&nbsp;***Special function***<BR />
@@ -72,24 +70,20 @@ sudo mousepad /etc/X11/app-defaults/XTerm <BR />
 * [http://www.sweger.com/ansiplus/EscSeqScroll.html](http://www.sweger.com/ansiplus/EscSeqScroll.html)<BR />
 * [https://fr.wikipedia.org/wiki/American_Standard_Code_for_Information_Interchange](https://fr.wikipedia.org/wiki/American_Standard_Code_for_Information_Interchange)<BR />
 
-
 USE DEMO termvte  your terminal   $HOME/..../termvte $HOME/..../keyboard  <BR />
 <BR />
 USE DEMO ex: your terminal xfce4-terminal   $ ./keyboard <BR />
 
-
-
-
 * Provision of special characters<BR />
 
-
 i did this to work with nim to understand some subtlety<BR />
-
 
 **Update**<BR />
 &rarr;&nbsp; 2020-11-15   purge code <BR />
 
-&rarr;&nbsp; 2022-03-29   STABLE  <BR />
+&rarr;&nbsp; 2022-03-29   STABLE<BR />
+
+&rarr;&nbsp; 2022-04-08   Add CtrL up down rigth left home end<BR />
 
 .<BR />
 
@@ -101,20 +95,16 @@ i did this to work with nim to understand some subtlety<BR />
 
 proc defCursor(e_curs: typCursor = cnoBlink) {...}
 
-    define type Cursor form terminal
-
+define type Cursor form terminal
 proc getCursor(line: var Natural; cols: var Natural) {...}
 
-    get Cursor form terminal
-
+get Cursor form terminal
 proc getTKey(): (TKey, Ckey.Chr) {...}
 
-    get the keyboard keys from the terminal
-
+get the keyboard keys from the terminal
 proc getFunc(curs: bool = false): (TKey) {...}
 
-    get the keyboard keys from the terminal
-
+get the keyboard keys from the terminal
 proc titleTerm(title: string) {...}
 
 proc resizeTerm(line, cols: Natural) {...}
@@ -133,24 +123,19 @@ proc gotoXY(line: Natural; cols: Natural) {...}
 
 proc gotoXPos(cols: Natural) {...}
 
-    Sets the terminal's cursor to the x position. The y position is not changed.
-
+Sets the terminal's cursor to the x position. The y position is not changed.
 proc cursorUp(count = 1) {...}
 
-    Moves the cursor up by count rows.
-
+Moves the cursor up by count rows.
 proc cursorDown(count = 1) {...}
 
-    Moves the cursor down by count rows.
-
+Moves the cursor down by count rows.
 proc cursorForward(count = 1) {...}
 
-    Moves the cursor forward by count columns.
-
+Moves the cursor forward by count columns.
 proc cursorBackward(count = 1) {...}
 
-    Moves the cursor backward by count columns.
-
+Moves the cursor backward by count columns.
 proc onMouse() {...}
 
 proc offMouse() {...}
@@ -159,76 +144,58 @@ proc getMouse(): MouseInfo {...}
 
 proc onScroll(line, linePage: Natural): bool {...}
 
-    on scrolling
-
+on scrolling
 proc offScroll(): bool {...}
 
-    off scrolling
-
+off scrolling
 proc upScrool(line: Natural) {...}
 
-    scrolling up
-
+scrolling up
 proc downScrool(line: Natural) {...}
 
-    scrolling down
-
+scrolling down
 proc clsTerm() {...}
 
-    Erases the entire terminal attribut and word
-
+Erases the entire terminal attribut and word
 proc resetAttributes() {...}
 
-    Resets all attributes.
-
+Resets all attributes.
 proc eraseLineEnd() {...}
 
-    Erases from the current cursor position to the end of the current line.
-
+Erases from the current cursor position to the end of the current line.
 proc eraseLineStart() {...}
 
-    Erases from the current cursor position to the start of the current line.
-
+Erases from the current cursor position to the start of the current line.
 proc eraseDown() {...}
 
-    Erases the screen from the current line down to the bottom of the screen.
-
+Erases the screen from the current line down to the bottom of the screen.
 proc eraseUp() {...}
 
-    Erases the screen from the current line up to the top of the screen.
-
+Erases the screen from the current line up to the top of the screen.
 proc eraseLine() {...}
 
-    Erases the entire current line.
-
+Erases the entire current line.
 proc eraseTerm() {...}
 
-    Erases the entire word.
-
+Erases the entire word.
 proc setStyle(style: set[Style]) {...}
 
-    Sets the terminal style.
-
+Sets the terminal style.
 proc writeStyled(txt: string; style: set[Style] = {styleBright}) {...}
 
-    Writes the text txt in a given style to stdout.
-
+Writes the text txt in a given style to stdout.
 proc setForegroundColor(fg: ForegroundColor; bright = false) {...}
 
-    Sets the terminal's foreground color.
-
+Sets the terminal's foreground color.
 proc setBackgroundColor(bg: BackgroundColor; bright = false) {...}
 
-    Sets the terminal's background color.
-
+Sets the terminal's background color.
 proc terminalWidth(): int {...}
 
-    Returns terminal width from first fd the ioctl.
-
+Returns terminal width from first fd the ioctl.
 proc terminalHeight(): int {...}
 
-    Returns terminal height from first fd the ioctl.
-
+Returns terminal height from first fd the ioctl.
 <BR />
 <BR />
 

@@ -92,6 +92,14 @@ type
       altY  = "altY",
       altZ  = "altZ",
 
+      CtrlUp    = "CtrlUp",
+      CtrlDown  = "CtrlDown",
+      CtrlRight = "CtrlRight",
+      CtrlLeft  = "CtrlLeft",
+      CtrlHome  = "CtrlHome",
+      CtrlEnd   = "CtrlEnd",
+
+
       Mouse = "Mouse",
 
       ATTN = "ATTN",
@@ -108,6 +116,7 @@ const intListKey: array[TKey, int] = [-1,0,
     1000,1001,1002,1003,1004,1005,1006,1007,1008,1009,1010,
     1011,1012,1013,1014,1015,1016,1017,1018,1019,1020,1021,1022,1023,1024,1025,1026,1027,1028,1029,1030,1031,1032,1033,1034,
     2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026,
+    3000,3001,3002,3003,3004,3005,
     5000,7001,7002,7003]
 
 let
@@ -116,6 +125,13 @@ let
     intListKey[TKey.Down]:      @["\eOB", "\e[B"],
     intListKey[TKey.Right]:     @["\eOC", "\e[C"],
     intListKey[TKey.Left]:      @["\eOD", "\e[D"],
+
+    intListKey[TKey.CtrlUp]:    @["\e[1;5A"],
+    intListKey[TKey.CtrlDown]:  @["\e[1;5B"],
+    intListKey[TKey.CtrlRight]: @["\e[1;5C"],
+    intListKey[TKey.CtrlLeft]:  @["\e[1;5D"],
+    intListKey[TKey.CtrlHome]:  @["\e[1;5H"],
+    intListKey[TKey.CtrlEnd]:   @["\e[1;5F"],
 
     intListKey[TKey.Home]:      @["\e[1~", "\e[7~", "\eOH", "\e[H"],
     intListKey[TKey.Insert]:    @["\e[2~"],
@@ -853,6 +869,7 @@ proc eraseLine*() =
 proc eraseTerm*() =
   ## Erases the entire word.
   stdout.write("\e[2J")
+  stdout.flushFile()
 
 proc codeStyleTerm(style: int): string =
   result = fmt"{CSI}{style}m"
