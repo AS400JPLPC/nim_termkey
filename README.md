@@ -85,6 +85,9 @@ i did this to work with nim to understand some subtlety<BR />
 
 &rarr;&nbsp; 2022-04-08   Add CtrL up down rigth left home end<BR />
 
+&rarr;&nbsp; 2022-04-08   change altE  = "altD" --> "altE" erreur ecriture<BR />
+
+
 .<BR />
 
 .<BR />

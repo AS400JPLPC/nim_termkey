@@ -69,7 +69,7 @@ type
       altB  = "altB",
       altC  = "altC",
       altD  = "altD",
-      altE  = "altD",
+      altE  = "altE",
       altF  = "altF",
       altG  = "altG",
       altH  = "altH",
