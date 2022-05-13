@@ -101,110 +101,152 @@ i did this to work with nim to understand some subtlety<BR />
 
 ***Proc***.<BR />
 
-proc defCursor(e_curs: typCursor = cnoBlink) {...}
 
-define type Cursor form terminal
-proc getCursor(line: var Natural; cols: var Natural) {...}
 
-get Cursor form terminal
-proc getTKey(): (TKey, Ckey.Chr) {...}
+proc clearScrool(line: Natural) {.....}
 
-get the keyboard keys from the terminal
-proc getFunc(curs: bool = false): (TKey) {...}
+    scrolling up origine "{CSI}{nbr line}S" start first line very bad scrolling scrolling down origine "{CSI}{nbr line}T" start last line very bad scrolling
 
-get the keyboard keys from the terminal
-proc titleTerm(title: string) {...}
+proc closeTerm() {.....}
 
-proc resizeTerm(line, cols: Natural) {...}
+proc clsTerm() {.....}
 
-proc initTerm(line, cols: Natural; title: string = "") {...}
+    Erases the entire terminal attribut and word cursor 1,1
 
-proc iniTerm() {...}
+proc cursorBackward(count = 1) {.....}
 
-proc closeTerm() {...}
+    Moves the cursor backward by count columns.
 
-proc offCursor() {...}
+proc cursorDown(count = 1) {.....}
 
-proc onCursor() {...}
+    Moves the cursor down by count rows.
 
-proc gotoXY(line: Natural; cols: Natural) {...}
+proc cursorForward(count = 1) {.....}
 
-proc gotoXPos(cols: Natural) {...}
+    Moves the cursor forward by count columns.
 
-Sets the terminal's cursor to the x position. The y position is not changed.
-proc cursorUp(count = 1) {...}
+proc cursorUp(count = 1) {.....}
 
-Moves the cursor up by count rows.
-proc cursorDown(count = 1) {...}
+    Moves the cursor up by count rows.
 
-Moves the cursor down by count rows.
-proc cursorForward(count = 1) {...}
+proc defCursor(e_curs: typCursor = cnoBlink) {.....}
 
-Moves the cursor forward by count columns.
-proc cursorBackward(count = 1) {...}
+    define type Cursor form terminal
 
-Moves the cursor backward by count columns.
-proc onMouse() {...}
+proc downScrool(line: Natural) {.....}
 
-proc offMouse() {...}
+    scrolling down
 
-proc getMouse(): MouseInfo {...}
+proc eraseDown() {.....}
 
-proc onScroll(line, linePage: Natural): bool {...}
+    Erases the screen from the current line down to the bottom of the screen.
 
-on scrolling
-proc offScroll(): bool {...}
+proc eraseLine() {.....}
 
-off scrolling
-proc upScrool(line: Natural) {...}
+    Erases the entire current line.
 
-scrolling up
-proc downScrool(line: Natural) {...}
+proc eraseLineEnd() {.....}
 
-scrolling down
-proc clsTerm() {...}
+    Erases from the current cursor position to the end of the current line.
 
-Erases the entire terminal attribut and word
-proc resetAttributes() {...}
+proc eraseLineStart() {.....}
 
-Resets all attributes.
-proc eraseLineEnd() {...}
+    Erases from the current cursor position to the start of the current line.
 
-Erases from the current cursor position to the end of the current line.
-proc eraseLineStart() {...}
+proc eraseTerm() {.....}
 
-Erases from the current cursor position to the start of the current line.
-proc eraseDown() {...}
+    Erases the entire word.
 
-Erases the screen from the current line down to the bottom of the screen.
-proc eraseUp() {...}
+proc eraseUp() {.....}
 
-Erases the screen from the current line up to the top of the screen.
-proc eraseLine() {...}
+    Erases the screen from the current line up to the top of the screen.
 
-Erases the entire current line.
-proc eraseTerm() {...}
+proc getCursor(line: var Natural; cols: var Natural) {.
+    ....}
 
-Erases the entire word.
-proc setStyle(style: set[Style]) {...}
+    get Cursor form terminal
 
-Sets the terminal style.
-proc writeStyled(txt: string; style: set[Style] = {styleBright}) {...}
+proc getFunc(curs: bool = false): (TKey) {.....}
 
-Writes the text txt in a given style to stdout.
-proc setForegroundColor(fg: ForegroundColor; bright = false) {...}
+    get the keyboard keys from the terminal
 
-Sets the terminal's foreground color.
-proc setBackgroundColor(bg: BackgroundColor; bright = false) {...}
+proc getMouse(): MouseInfo {.....}
 
-Sets the terminal's background color.
-proc terminalWidth(): int {...}
+proc getMouseBtn(): TKey {.....}
 
-Returns terminal width from first fd the ioctl.
-proc terminalHeight(): int {...}
+proc getMouseXY(line: var Natural; cols: var Natural) {.....}
 
-Returns terminal height from first fd the ioctl.
+proc getTKey(): (TKey, Ckey.Chr) {.....}
+
+    get the keyboard keys from the terminal
+
+proc gotoXPos(cols: Natural) {.....}
+
+    Sets the terminal's cursor to the x position. The y position is not changed.
+
+proc gotoXY(line: Natural; cols: Natural) {.....}
+
+proc initTerm() {.....}
+
+proc initTerm(line, cols: Natural; title: string = "") {.
+    ....}
+
+proc offCursor() {.....}
+
+proc offMouse() {.....}
+
+proc offScroll(): bool {.....}
+
+    off scrolling
+
+proc onCursor() {.....}
+
+proc onMouse() {.....}
+
+proc onScroll(line, linePage: Natural): bool {.....}
+
+    on scrolling
+
+proc resetAttributes() {.....}
+
+    Resets all attributes.
+
+proc resizeTerm(line, cols: Natural) {.....}
+
+proc setBackgroundColor(bg: BackgroundColor; bright = false) {.
+    ....}
+
+    Sets the terminal's background color.
+
+proc setForegroundColor(fg: ForegroundColor; bright = false) {.
+    ....}
+
+    Sets the terminal's foreground color.
+
+proc setStyle(style: set[Style]) {.....}
+
+    Sets the terminal style.
+
+proc terminalHeight(): int {.....}
+
+    Returns terminal height from first fd the ioctl.
+
+proc terminalWidth(): int {.....}
+
+    Returns terminal width from first fd the ioctl.
+
+proc titleTerm(title: string) {.....}
+
+proc upScrool(line: Natural) {.....}
+
+    scrolling up
+
+proc writeStyled(txt: string; style: set[Style] = {styleBright}) {.
+    ....}
+
+    Writes the text txt in a given style to stdout.
+
 <BR />
 <BR />
 
-**Made with Nim. Generated: 2020-11-15 21:56:36 UTC**
+**Made with Nim. Generated: 2022-05-13 19:37:16 UTC**
