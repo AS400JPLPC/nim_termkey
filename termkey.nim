@@ -102,6 +102,12 @@ type
 
       Mouse = "Mouse",
 
+      Bleft    = "Bleft",
+      Bmiddle  = "Bmiddle",
+      Bright   = "Bright",
+      Bdown    = "Bdown",
+      Bup      = "Bup",
+
       ATTN = "ATTN",
       CALL = "CALL",
       PROC = "PROC"
@@ -117,7 +123,8 @@ const intListKey: array[TKey, int] = [-1,0,
     1011,1012,1013,1014,1015,1016,1017,1018,1019,1020,1021,1022,1023,1024,1025,1026,1027,1028,1029,1030,1031,1032,1033,1034,
     2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025,2026,
     3000,3001,3002,3003,3004,3005,
-    5000,7001,7002,7003]
+    5000,5011,5012,5013,5014,5015,
+    7001,7002,7003]
 
 let
   keySequences = {
@@ -237,7 +244,7 @@ type
     Bullet        = "•", # 8226
     Ellipsis      = "…", # 8230
     Permille      = "‰", # 8240
-    Euro          = "€", # 8264
+    Euro          = "€", # 8364
 
     TradeMark     = "™", # 8482
     Left          = "←", # 8492
@@ -291,12 +298,12 @@ const KeySequenceMaxLen = 800
 const
   CSI = 0x1B.chr & 0x5B.chr
   EnableMouse = fmt"{CSI}?1000;1005;1006h"
-  DisableMouse = fmt"{CSI}?1000;;1005;1006l"
+  DisableMouse = fmt"{CSI}?1000;1005;1006l"
 
 type
   MouseButtonAction*{.pure.} = enum
     mbaNone, mbaPressed, mbaReleased
-  MouseInfo* = object
+  MouseInfo = object
     x*: int ## x mouse position
     y*: int ## y mouse position
     button*: MouseButton ## which button was pressed
@@ -375,16 +382,15 @@ type
 var
   gFG {.threadvar.}: int
   gBG {.threadvar.}: int
-const
-  resetCode = fmt"{CSI}0m"
 
 
 
 
 
 
-
-
+#======================================================
+# Event Keyboard
+#======================================================
 
 proc eventMouseInfo(keyBuf: array[KeySequenceMaxLen, int]) =
 
@@ -439,46 +445,44 @@ proc eventMouseInfo(keyBuf: array[KeySequenceMaxLen, int]) =
     gMouseInfo.scrollDir = ScrollDirection.sdNone
 
 
+proc onMouse*() =
+  stdout.write(EnableMouse)
+  stdout.flushFile()
+  stdin.flushFile()
 
 
+proc offMouse*() =
+  stdout.write(DisableMouse)
+  stdout.flushFile()
+  stdin.flushFile()
 
 
+proc getMouse*(): MouseInfo =
+  return gMouseInfo
 
+proc getMouseBtn*() : Tkey =
+
+  if gMouseInfo.button != mbNone  :
+    case gMouseInfo.button :
+      of mbLeft   : return (TKey.Bleft)
+      of mbMiddle : return (TKey.Bmiddle)
+      of mbRight  : return (TKey.Bright)
+      else : discard
+
+  if gMouseInfo.scrollDir != sdNone  :
+    case gMouseInfo.scrollDir :
+          of sdDown : return (TKey.Bdown)
+          of sdUp   : return (TKey.Bup)
+          else : discard
+  return (TKey.None)
+
+proc getMouseXY*(line : var Natural ;cols : var Natural ) =
+  line = gMouseInfo.y
+  cols = gMouseInfo.x
 
 #======================================================
-# open Terminal Linux noblook non ctrl-c ....
-# Thank you base https://github.com/nim-lang/Nim/blob/version-1-0/lib/pure/terminal.nim#L50
+# Event CURSOR
 #======================================================
-
-## Modification of the terminal for keyboard reading without stdout.write
-## duplicate fd is use Posix default FD = 0->(STDIN)  the dup function gives the first free
-
-
-var oldMode: Termios
-var Term :bool = false
-var fdTerm :cint
-var fdhold :cint
-proc openRAW(time: cint = TCSAFLUSH) =
-  ## Opening only one terminal
-  if Term == true : return
-
-  var mode: Termios
-  fdhold = getFileHandle(stdin)
-  discard fdhold.tcGetAttr(addr oldMode)
-
-  fdTerm = dup(fdhold)
-  # Normally we should test if no assignment error fdTerm = -1
-
-  discard fdTerm.tcGetAttr(addr mode)
-  mode.c_iflag = mode.c_iflag and not Cflag(BRKINT or ICRNL or INPCK or  ISTRIP or IXON)
-  mode.c_oflag = mode.c_oflag and not Cflag(OPOST)
-  mode.c_cflag = (mode.c_cflag and not Cflag(CSIZE or PARENB)) or CS8
-  mode.c_lflag = mode.c_lflag and not Cflag(ECHO or ICANON or IEXTEN or ISIG)
-  mode.c_cc[VMIN] = 0.cuchar
-  mode.c_cc[VTIME] = 0.cuchar
-  discard fdTerm.tcSetAttr(time, addr mode)
-
-
 
 proc defCursor*(e_curs: typCursor = cnoBlink) =
   ## define type  Cursor form terminal
@@ -558,13 +562,83 @@ proc getCursor*(line : var Natural ;cols : var Natural ) =
       inc(i)
 
 
+proc offCursor*() =
+  stdout.write("\e[?25l")
+  stdout.flushFile()
+
+proc onCursor*() =
+  stdout.write("\e[?25h")
+  stdout.flushFile()
+
+proc gotoXY*(line: Natural ; cols : Natural) =
+  stdout.write(fmt"{CSI}{line};{cols}H")
+  stdout.flushFile()
+
+proc gotoXPos*(cols: Natural) =
+  ## Sets the terminal's cursor to the x position.
+  ## The y position is not changed.
+  stdout.write(fmt"{CSI}{cols}G")
+  stdout.flushFile()
+
+proc cursorUp*(count = 1) =
+  ## Moves the cursor up by `count` rows.
+  stdout.write(fmt"{CSI}{count}A")
+
+proc cursorDown*(count = 1) =
+  ## Moves the cursor down by `count` rows.
+  stdout.write(fmt"{CSI}{count}B")
+
+proc cursorForward*(count = 1) =
+  ## Moves the cursor forward by `count` columns.
+  stdout.write(fmt"{CSI}{count}C")
+
+proc cursorBackward*(count = 1) =
+  ## Moves the cursor backward by `count` columns.
+  stdout.write(fmt"{CSI}{count}D")
+
+
+
+
+
+
+#======================================================
+# open Terminal Linux noblook non ctrl-c ....
+# Thank you base https://github.com/nim-lang/Nim/blob/version-1-0/lib/pure/terminal.nim#L50
+#======================================================
+
+## Modification of the terminal for keyboard reading without stdout.write
+## duplicate fd is use Posix default FD = 0->(STDIN)  the dup function gives the first free
+
+
+var oldMode: Termios
+var Term :bool = false
+var fdTerm :cint
+var fdhold :cint
+proc openRAW(time: cint = TCSAFLUSH) =
+  ## Opening only one terminal
+  if Term == true : return
+
+  var mode: Termios
+  fdhold = getFileHandle(stdin)
+  discard fdhold.tcGetAttr(addr oldMode)
+
+  fdTerm = dup(fdhold)
+  # Normally we should test if no assignment error fdTerm = -1
+
+  discard fdTerm.tcGetAttr(addr mode)
+  mode.c_iflag = mode.c_iflag and not Cflag(BRKINT or ICRNL or INPCK or  ISTRIP or IXON)
+  mode.c_oflag = mode.c_oflag and not Cflag(OPOST)
+  mode.c_cflag = (mode.c_cflag and not Cflag(CSIZE or PARENB)) or CS8
+  mode.c_lflag = mode.c_lflag and not Cflag(ECHO or ICANON or IEXTEN or ISIG)
+  mode.c_cc[VMIN] = 0.char
+  mode.c_cc[VTIME] = 0.char
+  discard fdTerm.tcSetAttr(time, addr mode)
 
 
 
 #======================================================
 # Event Keyboard
 #======================================================
-
 # global keycode buffer
 var keyBuf*: array[KeySequenceMaxLen,int]
 
@@ -584,7 +658,7 @@ proc toKey(c: int): TKey =
 
 
 #======================================================
- # Parse Keyboard ASCII 255
+# Parse Keyboard ASCII 255
 # include Mouse
 #======================================================
 type
@@ -596,6 +670,7 @@ proc parseKey(charsRead: int): (TKey , Ckey.Chr) =
   ## keyboard buffer decryption from the terminal
   var inputSeq = ""
   var codekey = TKey.Char
+
 
   if charsRead == 1:
     let ch = keyBuf[0]
@@ -611,6 +686,7 @@ proc parseKey(charsRead: int): (TKey , Ckey.Chr) =
         inputSeq &= char(keyBuf[0])
     return (codekey,inputSeq)
 
+
   if keyBuf[0] == 27 and charsRead == 2 :
     inputSeq &= "27"
     inputSeq &= $keyBuf[1]
@@ -625,7 +701,8 @@ proc parseKey(charsRead: int): (TKey , Ckey.Chr) =
 
   elif charsRead > 3 and keyBuf[0] == 27 and keyBuf[1] == 91 and keyBuf[2] == 60: # TODO what are these :)
       eventMouseInfo(keyBuf)
-      return (TKey.Mouse,"")
+      if gMouseInfo.action == MouseButtonAction.mbaPressed: return (TKey.Mouse,"")
+      else: return (TKey.None,"")
 
   elif charsRead == 3 and keyBuf[0] == 27 and keyBuf[1] == 91 and keyBuf[2] == 90: # TODO what are these :)
       return (TKey.Stab,"")
@@ -641,6 +718,7 @@ proc parseKey(charsRead: int): (TKey , Ckey.Chr) =
         break
   if codekey == TKey.None : codekey = TKey.Char
   return (codekey,inputSeq)
+
 
 
 
@@ -667,7 +745,6 @@ proc getTKey*() : (TKey , Ckey.Chr) =
       var ncar = read(fdTerm, keyBuf[i].addr, 1)
       if ncar == 0 and i > 0 : break
       if ncar > 0 : i += 1
-
     ## decrypt Data
     (codekey, chr) = parseKey(i)
     if codekey != TKey.None : return (codekey, chr)
@@ -700,6 +777,24 @@ proc getFunc*(curs : bool = false) : (TKey) =
     if codekey != TKey.None and codekey != TKey.Char  : return (codekey)
 
 
+
+
+#======================================================
+# Terminal Linux
+#======================================================
+
+
+proc terminalWidth*(): int =
+  ## Returns terminal width from first fd the ioctl.
+  var win: winsize
+  discard ioctl(cint(fdTerm), TIOCGWINSZ, addr win)
+  return int(win.ws_col)
+
+proc terminalHeight*(): int =
+  ## Returns terminal height from first fd the ioctl.
+  var win: winsize
+  discard ioctl(cint(fdTerm), TIOCGWINSZ, addr win)
+  return int(win.ws_row)
 
 proc titleTerm*( title :string)=
   if title != "" :
@@ -752,96 +847,17 @@ proc closeTerm*() =
   quit(0)
 
 
-proc offCursor*() =
-  stdout.write("\e[?25l")
-  stdout.flushFile()
-
-proc onCursor*() =
-  stdout.write("\e[?25h")
-  stdout.flushFile()
-
-proc gotoXY*(line: Natural ; cols : Natural) =
-  stdout.write(fmt"{CSI}{line};{cols}H")
-  stdout.flushFile()
-
-proc gotoXPos*(cols: Natural) =
-  ## Sets the terminal's cursor to the x position.
-  ## The y position is not changed.
-  stdout.write(fmt"{CSI}{cols}G")
-  stdout.flushFile()
-
-proc cursorUp*(count = 1) =
-  ## Moves the cursor up by `count` rows.
-  stdout.write(fmt"{CSI}{count}A")
-
-proc cursorDown*(count = 1) =
-  ## Moves the cursor down by `count` rows.
-  stdout.write(fmt"{CSI}{count}B")
-
-proc cursorForward*(count = 1) =
-  ## Moves the cursor forward by `count` columns.
-  stdout.write(fmt"{CSI}{count}C")
-
-proc cursorBackward*(count = 1) =
-  ## Moves the cursor backward by `count` columns.
-  stdout.write(fmt"{CSI}{count}D")
-
-proc onMouse*() =
-  stdout.write(EnableMouse)
-  stdout.flushFile()
-
-
-proc offMouse*() =
-  stdout.write(DisableMouse)
-  stdout.flushFile()
-
-
-proc getMouse*(): MouseInfo =
-  return gMouseInfo
-
-
-proc onScroll*(line , linePage: Natural) : bool =
-  ## on scrolling
-  if line == 0 or linePage == 0 : return false
-
-  var page : Natural  =  line + linePage - 1
-  stdout.write(fmt"{CSI}{line};{page}r")
-  stdout.flushFile()
-  return true
-
-
-
-proc offScroll*():bool =
-  ## off scrolling
-  stdout.write(fmt"{CSI}r")
-  stdout.flushFile()
-  return false
-
-proc upScrool*(line : Natural) =
-  ## scrolling up
-  stdout.write(fmt"{CSI}{line}S")
-  stdout.flushFile()
-
-proc downScrool*(line : Natural) =
-  ## scrolling down
-  stdout.write(fmt"{CSI}{line}T")
-  stdout.flushFile()
-
 proc clsTerm*() =
-  ## Erases the entire terminal attribut and word
+  ## Erases the entire terminal attribut and word cursor 1,1
   offCursor()
   stdout.write(fmt"{CSI}1;1H{CSI}2J")
   stdout.flushFile()
   onCursor()
 
-
-
-proc resetAttributes*() =
-  ## Resets all attributes.
-  stdout.write(resetCode)
-  gFG = 0
-  gBG = 0
-
+proc eraseTerm*() =
+  ## Erases the entire word.
+  stdout.write("\e[2J")
+  stdout.flushFile()
 
 proc eraseLineEnd*() =
   ## Erases from the current cursor position to the end of the current line.
@@ -862,14 +878,61 @@ proc eraseUp*() =
 
 proc eraseLine*() =
   ## Erases the entire current line.
-  resetAttributes()
   stdout.write(fmt"{CSI}2K")
   gotoXPos(0)
 
-proc eraseTerm*() =
-  ## Erases the entire word.
-  stdout.write("\e[2J")
+
+
+#======================================================
+# scrolling use line full terminal
+#======================================================
+proc onScroll*(line , linePage: Natural) : bool =
+  ## on scrolling
+  if line == 0 or linePage == 0 : return false
+
+  stdout.write(fmt"{CSI}{line};{linePage}r")
+  stdout.write(fmt"{CSI}?4l")
+  stdout.write(fmt"{CSI}?6l")
   stdout.flushFile()
+  return true
+
+
+proc offScroll*():bool =
+  ## off scrolling
+  stdout.write(fmt"{CSI}r")
+  stdout.write(fmt"{CSI}?6l")
+  stdout.flushFile()
+  return false
+
+
+proc clearScrool*(line : Natural) =
+  ## scrolling up     origine "{CSI}{nbr line}S" start first line very bad scrolling
+  ## scrolling down   origine "{CSI}{nbr line}T" start last  line very bad scrolling
+  stdout.write(fmt"{CSI}{line}S")
+  stdout.flushFile()
+
+
+proc upScrool*(line : Natural) =
+  ## scrolling up
+  stdout.write(fmt"{CSI}{line}S")
+  stdout.flushFile()
+
+proc downScrool*(line : Natural) =
+  ## scrolling down
+  stdout.write(fmt"{CSI}{line}T")
+  stdout.flushFile()
+
+
+
+#======================================================
+# Styll color echo terminal
+#======================================================
+
+proc resetAttributes*() =
+  ## Resets all attributes.
+  stdout.write(fmt"{CSI}0m")
+  gFG = 0
+  gBG = 0
 
 proc codeStyleTerm(style: int): string =
   result = fmt"{CSI}{style}m"
@@ -904,17 +967,3 @@ proc setBackgroundColor*(bg: BackgroundColor, bright = false) =
   if bright: inc(gBG, 60)
   stdout.write(codeStyleTerm(gBG))
   stdout.flushFile()
-
-
-proc terminalWidth*(): int =
-  ## Returns terminal width from first fd the ioctl.
-  var win: winsize
-  discard ioctl(cint(fdTerm), TIOCGWINSZ, addr win)
-  return int(win.ws_col)
-
-proc terminalHeight*(): int =
-  ## Returns terminal height from first fd the ioctl.
-  var win: winsize
-  discard ioctl(cint(fdTerm), TIOCGWINSZ, addr win)
-  return int(win.ws_row)
-

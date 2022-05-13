@@ -87,6 +87,11 @@ i did this to work with nim to understand some subtlety<BR />
 
 &rarr;&nbsp; 2022-04-08   change altE  = "altD" --> "altE" erreur ecriture<BR />
 
+&rarr;&nbsp; 2022-04-28   add getMouseBtn "Bleft Bmiddle Bright Bdown Bup"<BR />
+
+&rarr;&nbsp; 2022-05-13   add getMouseBtn "pressed only" improved control<BR />
+
+&rarr;&nbsp; 2022-05-13   remove warning deprecated line 633/634 cuchar > char <BR />
 
 .<BR />
 
